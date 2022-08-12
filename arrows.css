@@ -88,10 +88,44 @@
     background-color: rgb(243, 97, 12);
 }
 
+.diceWindow {
+    box-sizing: content-box;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-around;
+    background-color: darkslategrey;
+}
+
 .die {
-    height: 2rem;
+    height: 5rem;
     aspect-ratio: 1;
-    border-radius: .5rem;
-    background-color: white;
-    color: black;
+}
+
+.die1 {
+    background-image: url(./media/die1.svg);
+}
+
+
+.die2 {
+    background-image: url(./media/die2.svg);
+}
+
+
+.die3 {
+    background-image: url(./media/die3.svg);
+}
+
+
+.die4 {
+    background-image: url(./media/die4.svg);
+}
+
+
+.die5 {
+    background-image: url(./media/die5.svg);
+}
+
+
+.die6 {
+    background-image: url(./media/die6.svg);
 }

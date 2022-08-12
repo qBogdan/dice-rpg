@@ -3,6 +3,10 @@ function $(selector) {
     return document.querySelector(selector)
 };
 
+function $$(selector) {
+    return document.querySelectorAll(selector)
+}
+
 let playerCount = 0;
 
 /* ** */
@@ -42,21 +46,9 @@ function addPlayer(name, color) {
 
 }
 
-function addEvents() {
-
-    document.querySelectorAll('.arrowButton').forEach(ar => {
-        ar.addEventListener('click', e => {
-            GAME.move(e.target.dataset.direction)
-        })
-    })
-
-    $('.endTurn').addEventListener('click', ()=> {GAME.nextPlayer();});
-
-}
-
 function startGame() {
     fillMap();
-    addEvents();
+    GAME.addEvents();
     addPlayer("Bogdan", "black");
     addPlayer("Livia", "darkred");
     addPlayer("Andrei", "blue");
