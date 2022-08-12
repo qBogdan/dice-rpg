@@ -1,0 +1,97 @@
+.moveController {
+    height: 15rem;
+    width: 100%;
+    background-color: aqua;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.moveButtons {
+    height: 100%;
+    aspect-ratio: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    padding: 1rem;
+}
+
+.arrowButton {
+    background-image: url(./media/arrow.svg);
+    background-color: aliceblue;
+    border-radius: 1.3rem;
+    font-size: 3rem;
+    text-align: center;
+    cursor: pointer;
+    transition: .2s;
+}
+
+
+
+.north {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 1;
+    grid-row-end: 1;
+}
+
+.west {
+    grid-column-start: 1;
+    grid-column-end: 1;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    transform: rotate(-90deg);
+}
+
+.east {
+    grid-column-start: 3;
+    grid-column-end: 3;
+    grid-row-start: 2;
+    grid-row-end: 3;
+    transform: rotate(90deg);
+}
+
+.south {
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end:3;
+    transform: rotate(180deg);
+}
+
+.north:hover {
+    transform: scale(1.1);
+}
+.west:hover {
+    transform: scale(1.1)  rotate(-90deg);
+}
+.east:hover {
+    transform: scale(1.1)  rotate(90deg);
+}
+.south:hover {
+    transform: scale(1.1)  rotate(180deg);
+}
+
+
+.endTurn {
+    width: 50%;
+    height: 4rem;
+    color: white;
+    border-radius: 2rem;
+    cursor: pointer;
+    text-align: center;
+    padding: 1rem;
+    font-size: 2rem;
+}
+
+.endTurn:hover {
+    background-color: rgb(243, 97, 12);
+}
+
+.die {
+    height: 2rem;
+    aspect-ratio: 1;
+    border-radius: .5rem;
+    background-color: white;
+    color: black;
+}

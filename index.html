@@ -5,7 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dice rpg</title>
+
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="arrows.css">
+
+    <script src="gameplay.js" defer></script>
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -19,6 +23,24 @@
             <div id="dragon"></div>
         </div>
     </section>
-    <section id="actionWindow"></section>    
+    <section id="actionWindow">
+
+        <div class="playerStats"></div>
+
+        <div class="diceWindow"></div>
+
+        <div class="moveController">
+
+            <div class="moveButtons">
+                <div data-direction="n" class="arrowButton north"></div>
+                <div data-direction="w" class="arrowButton west"></div>
+                <div data-direction="e" class="arrowButton east"></div>
+                <div data-direction="s" class="arrowButton south"></div>
+            </div>
+            <div class="endTurn">END</div>
+
+        </div>
+        
+    </section>    
 </body>
 </html>
