@@ -1,0 +1,61 @@
+.playerStats {
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    background-color: bisque;
+}
+
+.statsContainer {
+    width: 100%;
+}
+
+.picture {
+    height: 10rem;
+    aspect-ratio: 1;
+}
+
+.healthBar {
+    width: 100%;
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.healthValue {
+    height: 3rem;
+    aspect-ratio: 1;
+    background-color: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.bar {
+    flex: 1;
+    height: 3rem;
+    border: 2px solid black;
+    border-radius: 999px;
+    background-color: white;
+}
+
+.barValue {
+    height: 100%;
+    width: 57%;
+    background-color: red;
+    border-radius: 999px;
+}
+
+.stats {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.statPoint {
+    height: 3rem;
+    aspect-ratio: 1;
+    background-color: pink;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

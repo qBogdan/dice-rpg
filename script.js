@@ -54,6 +54,8 @@ function startGame() {
     addPlayer("Andrei", "blue");
     $('.endTurn').style.backgroundColor = GAME.activePlayer().color;
     GAME.rollDice();
+    MAP.drawMap();
+    GAME.displayCurrentPlayer()
 }
 
 startGame()

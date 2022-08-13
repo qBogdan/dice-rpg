@@ -35,7 +35,7 @@ body {
 #gameWindow {
     background-color: antiquewhite;
     height: 100%;
-    aspect-ratio: 3.5/3;
+    aspect-ratio: 1;
 }
 
 #map{

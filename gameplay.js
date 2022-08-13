@@ -4,10 +4,11 @@ class PLAYER {
         this.selector = "",
             this.name = name,
             this.color = color,
-            this.health = 10,
-            this.attack = 0,
-            this.defense = 0,
-            this.gold = 0,
+            this.maxHealth = 10,
+            this.health = 8,
+            this.attack = 4,
+            this.defense = 1,
+            this.gold = 120,
             this.coords = {},
             this.items = [],
             this.diceNumber = 4,
@@ -31,6 +32,38 @@ const GAME = {
 
     },
 
+    playerProfileConstructor() {
+        return `
+            
+        <div class="profile">
+            <div class="picture" style="background : ${this.activePlayer().color}"></div>
+            <h1>${this.activePlayer().name}</h1>
+        </div>
+        
+        <div class="statsContainer">
+
+            <div class="healthBar">
+                <div class="healthValue">${this.activePlayer().health}</div>
+                <div class="bar">
+                    <div class="barValue" style="width:${100 / this.activePlayer().maxHealth * this.activePlayer().health}%" ></div>
+                </div>
+            </div>
+
+            <div class="stats">
+                <div class="statPoint attack">attack: ${this.activePlayer().attack}</div>
+                <div class="statPoint defense">defense: ${this.activePlayer().defense}</div>
+                <div class="statPoint gold">gold: ${this.activePlayer().gold}</div>
+            </div>
+        </div>
+        `
+    },
+
+    displayCurrentPlayer() {
+        const container = $('.playerStats');
+        container.innerHTML = this.playerProfileConstructor();
+
+    },
+
     activePlayer() { // sets controlls for the current player
         return this.players[this.round]
     },
@@ -38,6 +71,7 @@ const GAME = {
     nextPlayer() { // swithces to the next player 
         this.round = (this.round + 1) % this.players.length;
         $('.endTurn').style.backgroundColor = this.activePlayer().color;
+        this.displayCurrentPlayer();
         this.rollDice(); // probably will be replaced by a button
         // change player display
     },
@@ -95,7 +129,8 @@ const GAME = {
                 die: 5
             }
         }
-        if (MAP.neighbours(this.activePlayer().coords.x, this.activePlayer().coords.y)[direction] !== undefined) {
+
+        if (this.checkPath(inst, direction)) {
             if (this.activePlayer().diceRound.includes(inst[direction].die)) {
                 this.movePawn(direction, inst);
                 this.removeDice(inst[direction].die)
@@ -104,9 +139,34 @@ const GAME = {
                 this.removeDice(6)
             }
         }
+    },
 
+    chekNeighbor(inst, direction) {
+        let now = { ... this.activePlayer().coords };
+        now[inst[direction].dir] += inst[direction].val;
+        let hasNeighbour;
 
+        this.players.forEach(player => {
+            if (JSON.stringify(player.coords) === JSON.stringify(now)) {
+                hasNeighbour = true
+            };
+        })
 
+        if (hasNeighbour) {
+            return true
+        } else {
+            return false
+        }
+    },
+
+    checkPath(inst, direction) {
+        let nextDir = this.activePlayer().coords[inst[direction].dir] + inst[direction].val;
+
+        if (nextDir > 0 && nextDir < 13 && !this.chekNeighbor(inst, direction)) {
+            return true
+        } else {
+            return false
+        }
     },
 
     movePawn(direction, inst) { // moves the player Element
