@@ -1,4 +1,4 @@
 # dice-rpg
 
 ## Live 
-[Demo](https://www.qBogdan.github.io/dice-rpg/index.html)
+[Demo](https://qbogdan.github.io/dice-rpg/)
