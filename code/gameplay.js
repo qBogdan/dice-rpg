@@ -3,9 +3,10 @@ class PLAYER {
     constructor(name, color) {
         this.selector = "",
             this.name = name,
+            this.index = 0,
             this.color = color,
             this.maxHealth = 10,
-            this.health = 8,
+            this.health = 2,
             this.attack = 0,
             this.defence = 0,
             this.gold = 120,
@@ -41,6 +42,7 @@ const GAME = {
 
         this.players[this.playerCount] = new PLAYER(name, color);
         this.players[this.playerCount].selector = `player${this.playerCount}`;
+        this.players[this.playerCount].index = this.playerCount;
         this.players[this.playerCount].coords = {
             x: MAP.size,
             y: 5 + this.playerCount
