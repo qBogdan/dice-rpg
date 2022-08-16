@@ -1,0 +1,60 @@
+*, *::after, *::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+*::-webkit-scrollbar {
+    display: none;
+}
+
+:root {
+    --mapSize: 15;
+    }
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+}
+
+/* ------------------------- */
+
+#gameWindow {
+    background-color: antiquewhite;
+    height: 100%;
+    aspect-ratio: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#map{
+    height: 90%; 
+    aspect-ratio: 1;
+    background-image: url(../media/mapBackground.png);
+    background-size: cover;
+    display: grid;
+    grid-template-columns: repeat(var(--mapSize), 1fr);
+    grid-template-rows: repeat(var(--mapSize), 1fr);
+    position: relative;
+}
+
+.player {
+    width: calc(100% / var(--mapSize));
+    aspect-ratio: 1;
+
+    position: absolute;
+    
+    border-radius: 50%;
+    transition: .3s ease-in-out;
+}
+
+
+
+#actionWindow {
+    flex: 1;
+    background-color: aliceblue;
+}

@@ -20,15 +20,7 @@
     margin-bottom: 2rem;
 }
 
-.healthValue {
-    height: 3rem;
-    aspect-ratio: 1;
-    background-color: white;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+
 
 .bar {
     flex: 1;
@@ -38,11 +30,13 @@
     background-color: white;
 }
 
-.barValue {
+.barValue,
+.npcBarValue {
     height: 100%;
     width: 57%;
     background-color: red;
     border-radius: 999px;
+    transition: .5s ease-out;
 }
 
 .stats {
@@ -52,10 +46,12 @@
 }
 
 .statPoint {
-    height: 3rem;
-    aspect-ratio: 1;
-    background-color: pink;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.gold {
+    background-image: url(../media/gold.svg);
+    background-size: cover;
 }

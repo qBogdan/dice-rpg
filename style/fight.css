@@ -1,0 +1,109 @@
+.fightScene {
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    background: rgb(48, 121, 255);
+    background: linear-gradient(90deg, rgba(48, 121, 255, 0.8) 0%, rgba(247, 24, 24, 0.8) 100%);
+
+    justify-content: center;
+    align-items: center;
+}
+
+.fightDisplay, .status {
+    padding: 1rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+}
+
+
+
+.fighter {
+    height: 100%;
+    flex: 1;
+}
+
+.fPicture {
+    height:40%;
+    aspect-ratio: 1;
+    background-color: violet;
+}
+
+
+.healthValue,
+.npcHealthValue,
+.attack,
+.defence,
+.gold {
+    height: 4rem;
+    aspect-ratio: 1;
+    background-size: cover;
+    
+}
+
+.attack {
+    margin: 0 .5rem;
+    background-image: url(../media/attack.svg);
+}
+
+.healthValue {
+    background-image: url(../media/life.svg);
+}
+
+.defence {
+    background-image: url(../media/defence.svg);
+}
+
+
+
+.fightStats {
+    flex: 1;
+    width: 100%;
+    background-color: antiquewhite;
+    display: flex;
+}
+
+.fightResult {
+    flex: 1;
+    font-size: 10rem;
+}
+
+.fightStats {
+    flex: 1;
+}
+
+.thisAction,
+.thisDie {
+    height: 4rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: rebeccapurple;
+}
+
+.thisDie {
+    background-color: grey;
+    border-radius: 1rem;
+}
+
+
+
+.fightOptions {
+    width: 12rem;
+    height: 4rem;
+    background-color: white;
+    border: 5px solid red;
+    border-radius: 9999px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.attackAction,
+.defenceAction {
+    height: 3rem;
+    aspect-ratio: 1;
+    background-size: cover;
+}
+

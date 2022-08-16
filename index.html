@@ -7,20 +7,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>dice rpg</title>
 
-    <link rel="shortcut icon" href="./media/fav.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="./media/favIcon.svg" type="image/x-icon">
 
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="player.css">
-    <link rel="stylesheet" href="arrows.css">
+    <link rel="stylesheet" href="./style/main.css">
+    <link rel="stylesheet" href="./style/player.css">
+    <link rel="stylesheet" href="./style/arrows.css">
+    <link rel="stylesheet" href="./style/fight.css">
 
-    <script src="map.js" defer></script>
-    <script src="gameplay.js" defer></script>
-    <script src="script.js" defer></script>
+    <script src="./code/map.js" defer></script>
+    <script src="./code/gameplay.js" defer></script>
+    <script src="./code/fight.js" defer></script>
+    <script src="./code/script.js" defer></script>
 </head>
 
 <body>
+    <div class="fightScene">
+
+        <div class="fightDisplay">
+
+            
+
+        </div>
+
+    </div>
 
     <section id="gameWindow" class="center">
+
         <div id="map">
             <div id="start"></div>
             <div id="leftVillage"></div>
@@ -29,6 +41,7 @@
             <div id="dragon"></div>
         </div>
     </section>
+
     <section id="actionWindow">
 
         <div class="playerStats">
@@ -45,7 +58,9 @@
                 <div data-direction="e" class="arrowButton east"></div>
                 <div data-direction="s" class="arrowButton south"></div>
             </div>
-            <div class="endTurn">END</div>
+
+            <div class="actionButton">
+            </div>
 
         </div>
 
