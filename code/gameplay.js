@@ -236,7 +236,7 @@ const GAME = {
     removeDice(dieNr) { // removes die element once used
         let dieI = this.activePlayer().diceRound.findIndex(x => x === dieNr);
         this.activePlayer().diceRound.splice(dieI, 1);
-        $$('.die')[dieI].remove();
+        $$('.die')[dieNr].remove();
     },
 
     addSixDie() {
@@ -266,6 +266,26 @@ const GAME = {
         this.displayCurrentPlayer();
         this.addActionButton()
 
+    },
+
+    updatePlayerVisual() {
+        $$('.healthValue').forEach(val => {
+            val.innerText = GAME.activePlayer().health;
+        });
+        
+        $$('.barValue').forEach(val => {
+            val.style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
+        })
+    },
+
+    resetPlayer() {
+        this.activePlayer().health = GAME.activePlayer().maxHealth;
+        this.updatePlayerVisual()
+        this.activePlayer().items = [];
+        this.activePlayer().diceRound = [];
+        this.createDice();
+        $(`.${this.activePlayer().selector}`).style.top = MAP.getCoords(MAP.size) + 'px';
+        $(`.${this.activePlayer().selector}`).style.left = MAP.getCoords(5 + this.activePlayer().index) + 'px';
     }
 
 }

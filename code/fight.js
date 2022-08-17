@@ -146,6 +146,11 @@ const FIGHT = {
         return winner;
     },
 
+    updateNpc() {
+        $('.npcHealthValue').innerText = this.activeNPC.health;
+        $('.npcBarValue').style.width = (100 / this.activeNPC.maxHealth) * this.activeNPC.health + '%'
+    },
+
     updateVisuals(winner) {
 
 
@@ -158,57 +163,42 @@ const FIGHT = {
             $('.fightResult').style.color = "blue";
             this.activeNPC.health = this.activeNPC.health - winner.hit < 0 ? 0 : this.activeNPC.health - winner.hit ;
 
-            
-            $('.npcHealthValue').innerText = this.activeNPC.health;
-            $('.npcBarValue').style.width = (100 / this.activeNPC.maxHealth) * this.activeNPC.health + '%'
-           
             if (this.activeNPC.health <= 0) {
                 this.fighterDead('npc');
+                return
             }
+
+            this.updateNpc()
 
         } else {
 
             $('.fightResult').style.color = "red";
             GAME.activePlayer().health = GAME.activePlayer().health - winner.hit < 0 ? 0 : GAME.activePlayer().health - winner.hit ;
 
-            
-            $$('.healthValue').forEach(val => {
-                val.innerText = GAME.activePlayer().health;
-                console.log(val);
-            });
-            
-            $$('.barValue').forEach(val => {
-                val.style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
-                console.log(val);
-            })
-            
             if (GAME.activePlayer().health <= 0) {
-                this.fighterDead('player')
+                this.fighterDead('player');
+                return
             }
+
+            GAME.updatePlayerVisual();
+
         }
 
         $('.fightResult').innerText = winner.hit
     },
 
     fighterDead(fighter) {
+
         if (fighter === "npc") {
+
             GAME.addSixDie();
-            $('.fightResult').innerText = GAME.activePlayer().name + 'wins'
+            $('.fightResult').innerText = GAME.activePlayer().name + 'wins';
+            this.updateNpc();
         }
 
         if (fighter === 'player') {
-            $(`.${GAME.activePlayer().selector}`).style.top = MAP.getCoords(MAP.size) + 'px';
-            $(`.${GAME.activePlayer().selector}`).style.left = MAP.getCoords(5 + GAME.activePlayer().index) + 'px';
-            GAME.activePlayer().health = GAME.activePlayer().maxHealth;
-            GAME.activePlayer().items = [];
-            $$('.healthValue').forEach(val => {
-                val.innerText = GAME.activePlayer().health;
-            });
-            
-            $$('.barValue').forEach(val => {
-                val.style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
-            })
 
+            GAME.resetPlayer();
             $('.fightResult').innerText = 'NPC wins'
         }
 
@@ -217,7 +207,7 @@ const FIGHT = {
         
         setTimeout(() => {
             $('.fightScene').style.display = 'none';
-        }, 3000);
+        }, 1000);
         
     }
 
