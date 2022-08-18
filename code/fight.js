@@ -207,15 +207,15 @@ const FIGHT = {
         }
 
         if (fighter === 'player') {
-
-            GAME.resetPlayer();
-            $('.fightResult').innerText = 'NPC wins'
+            $('.fightResult').innerText = 'NPC wins';
+            GAME.updatePlayerVisual()
         }
 
         GAME.addActionButton();
         
         setTimeout(() => {
             $('.fightScene').style.display = 'none';
+            GAME.resetPlayer();
         }, 2000);
         
     }

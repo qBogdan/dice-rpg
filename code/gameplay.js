@@ -5,7 +5,7 @@ class PLAYER {
             this.name = name,
             this.index = 0,
             this.color = color,
-            this.maxHealth = 50,
+            this.maxHealth = 10,
             this.health = this.maxHealth,
             this.attack = 0,
             this.defence = 0,
@@ -234,8 +234,12 @@ const GAME = {
         this.activePlayer().health = GAME.activePlayer().maxHealth;
         this.updatePlayerVisual();
         this.activePlayer().items = [];
-        $(`.${this.activePlayer().selector}`).style.top = MAP.getCoords(MAP.size) + 'px';
-        $(`.${this.activePlayer().selector}`).style.left = MAP.getCoords(5 + this.activePlayer().index) + 'px';
+        this.activePlayer().coords = {
+            x: MAP.size,
+            y: 5 + this.activePlayer().index
+        }
+        $(`.${this.activePlayer().selector}`).style.top = MAP.getCoords(this.activePlayer().coords.x) + 'px';
+        $(`.${this.activePlayer().selector}`).style.left = MAP.getCoords(this.activePlayer().coords.y) + 'px';
         GAME.nextPlayer();
     }
 
