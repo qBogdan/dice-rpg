@@ -94,7 +94,7 @@ const MAP = {
 
     playEvent() { // plays event depending on player location on map
         if (this.activePlayerLocation() === 'x') {
-            GAME.addSixDie()
+            DICE.addSixDie()
         }
         // else if 'c'
         // else if  'd'

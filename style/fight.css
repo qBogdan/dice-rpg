@@ -48,7 +48,8 @@
     background-image: url(../media/attack.svg);
 }
 
-.healthValue {
+.healthValue,
+.npcHealthValue {
     background-image: url(../media/life.svg);
 }
 

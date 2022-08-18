@@ -5,8 +5,8 @@ class PLAYER {
             this.name = name,
             this.index = 0,
             this.color = color,
-            this.maxHealth = 10,
-            this.health = 2,
+            this.maxHealth = 50,
+            this.health = this.maxHealth,
             this.attack = 0,
             this.defence = 0,
             this.gold = 120,
@@ -88,18 +88,11 @@ const GAME = {
     },
 
     displayCurrentPlayer() {
-        const container = $('.playerStats');
-        container.innerHTML = this.playerProfileConstructor();
+        $('.playerStats').innerHTML = this.playerProfileConstructor();
     },
 
     activePlayer() { // sets controlls for the current player
         return this.players[this.round]
-    },
-
-    fight() {
-        this.removeDice(1);
-        this.addSixDie();
-        this.addActionButton()
     },
 
     addActionButton() {
@@ -127,37 +120,13 @@ const GAME = {
     nextPlayer() { // swithces to the next player 
         this.round = (this.round + 1) % this.players.length;
         this.displayCurrentPlayer();
-        this.rollDice();
+        DICE.rollDice();
         this.addActionButton()
         // probably will be replaced by a button
         // change player display
     },
 
-    createDice() { // create random dice elements 
-        $('.diceWindow').innerHTML = ""; // resets dice container element
-        this.activePlayer().diceRound = []; // resets current dice array
 
-        let startN = 1;
-        let endN = 6
-
-        for (let i = 0; i < this.activePlayer().diceNumber; i++) {
-
-            let dieR = Math.floor(Math.random() * endN) + startN; // creates random number
-
-            if (dieR === 1) { // prevents game from having more than one attack per turn 
-                startN = 2;
-                endN = 5
-            }
-
-            let die = document.createElement('div'); // create die element
-            die.classList.add('die');
-            die.classList.add(`die${dieR}`);
-
-            this.activePlayer().diceRound.push(dieR) // push die number to player array
-
-            $('.diceWindow').append(die)
-        }
-    },
 
     move(direction) {
         const inst = { // map the instructions for each cardinal point
@@ -189,11 +158,13 @@ const GAME = {
 
         if (this.checkPath(inst, direction)) {
             if (this.activePlayer().diceRound.includes(inst[direction].die)) {
+
+                DICE.removeDice(inst[direction].die)
                 this.movePawn(direction, inst);
-                this.removeDice(inst[direction].die)
+
             } else if (this.activePlayer().diceRound.includes(6)) {
+                DICE.removeDice(6)
                 this.movePawn(direction, inst);
-                this.removeDice(6)
             }
         }
     },
@@ -233,25 +204,6 @@ const GAME = {
         MAP.playEvent();
     },
 
-    removeDice(dieNr) { // removes die element once used
-        let dieI = this.activePlayer().diceRound.findIndex(x => x === dieNr);
-        this.activePlayer().diceRound.splice(dieI, 1);
-        $$('.die')[dieNr].remove();
-    },
-
-    addSixDie() {
-        this.activePlayer().diceRound.push(6);
-        let six = document.createElement('div');
-        six.classList.add('die');
-        six.classList.add('die6');
-        $('.diceWindow').append(six)
-    },
-
-
-    rollDice() {
-        this.createDice();
-        // dice animation;
-    },
 
     startGame() {
         this.addPlayer("Bogdan", 'darkgrey');
@@ -261,7 +213,7 @@ const GAME = {
         this.addPlayer("Maduta", 'green');
 
         this.addEvents();
-        this.rollDice();
+        DICE.rollDice();
         MAP.drawMap();
         this.displayCurrentPlayer();
         this.addActionButton()
@@ -272,7 +224,7 @@ const GAME = {
         $$('.healthValue').forEach(val => {
             val.innerText = GAME.activePlayer().health;
         });
-        
+
         $$('.barValue').forEach(val => {
             val.style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
         })
@@ -280,12 +232,11 @@ const GAME = {
 
     resetPlayer() {
         this.activePlayer().health = GAME.activePlayer().maxHealth;
-        this.updatePlayerVisual()
+        this.updatePlayerVisual();
         this.activePlayer().items = [];
-        this.activePlayer().diceRound = [];
-        this.createDice();
         $(`.${this.activePlayer().selector}`).style.top = MAP.getCoords(MAP.size) + 'px';
         $(`.${this.activePlayer().selector}`).style.left = MAP.getCoords(5 + this.activePlayer().index) + 'px';
+        GAME.nextPlayer();
     }
 
 }

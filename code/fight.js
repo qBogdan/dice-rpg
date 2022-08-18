@@ -22,7 +22,7 @@ const FIGHT = {
     },
 
     createScene() {
-        this.createNPC(1);
+        this.createNPC(10);
         $('.fightDisplay').innerHTML = "";
         $('.fightScene').style.display = 'flex';
         $('.fightDisplay').innerHTML += this.fighterConstructor(GAME.activePlayer()) + this.fightStatsConstructor() + this.fighterConstructor(this.activeNPC)
@@ -44,7 +44,7 @@ const FIGHT = {
                  </div>
 
                 <div class="status">
-                    <div class="${fighter.type === "npc" ? "npcHealthValue" : "healthValue"} ">${fighter.health}</div>
+                    <div class="${fighter.type === "npc" ? "npcHealthValue" : "healthValue"}" > ${fighter.health}</div>
                     <div class="attack">${fighter.attack}</div>
                     <div class="defence">${fighter.defence}</div>
                 </div>
@@ -57,14 +57,14 @@ const FIGHT = {
             <div class="fightMenu">
                 <div class="fightStats">
 
-                    <div class="fightsStats">
+                    <div class="fightsStats playerFStats">
                         <div class="thisAction"></div>
                         <div class="thisDie"></div>
                     </div>
 
                     <div class="fightResult">0</div>
 
-                    <div class="fightsStats">
+                    <div class="fightsStats npcFStats">
                         <div class="thisAction"></div>
                         <div class="thisDie"></div>
                     </div>
@@ -80,12 +80,10 @@ const FIGHT = {
 
     addACtionEvents() {
         $('.attackAction').addEventListener('click', () => {
-            console.log('attack');
             this.fight('attack')
         });
 
         $('.defenceAction').addEventListener('click', () => {
-            console.log('defence');
             this.fight('defence')
         });
     },
@@ -105,9 +103,20 @@ const FIGHT = {
         const winner = this.determineWinner(action, playerAction, npcAction);
 
         this.updateVisuals(winner);
+        this.displayChoices(playerAction , npcAction)
 
         //check win/lose condition
         //next turn
+    },
+
+
+    displayChoices(playerAction, npcAction) {
+        
+        $('.playerFStats .thisAction').innerHTML = `<div class="${playerAction.action}"></div>`
+        $('.playerFStats .thisDie').innerText = playerAction.die + GAME.activePlayer()[playerAction.action]
+        
+        $('.npcFStats .thisAction').innerHTML = `<div class="${npcAction.action}"></div>`
+        $('.npcFStats .thisDie').innerText = npcAction.die + this.activeNPC[playerAction.action]
     },
 
     determineWinner(action, player, npc) {
@@ -123,7 +132,7 @@ const FIGHT = {
                     winner.hit = 0
             } else if ((player.die + GAME.activePlayer().attack) > (npc.die + this.activeNPC[action])) {
                 winner.name = 'player';
-                winner.hit = npc.action === "attack" ? player.die + GAME.activePlayer().attack : (player.die + GAME.activePlayer().attack) - + this.activeNPC.defence
+                winner.hit = npc.action === "attack" ? player.die + GAME.activePlayer().attack : (player.die + GAME.activePlayer().attack) - (this.activeNPC.defence + npc.die)
             } else {
                 winner.name = "npc";
                 winner.hit = npc.action === "attack" ? npc.die + this.activeNPC.attack : 1
@@ -139,7 +148,7 @@ const FIGHT = {
                 winner.hit = 1
             } else {
                 winner.name = "npc";
-                winner.hit = (npc.die + this.activeNPC.attack) - GAME.activePlayer().defence
+                winner.hit = (npc.die + this.activeNPC.attack) - (GAME.activePlayer().defence + player.die)
             }
         }
 
@@ -191,7 +200,8 @@ const FIGHT = {
 
         if (fighter === "npc") {
 
-            GAME.addSixDie();
+            DICE.removeDice(1);
+            DICE.addSixDie();
             $('.fightResult').innerText = GAME.activePlayer().name + 'wins';
             this.updateNpc();
         }
@@ -202,12 +212,11 @@ const FIGHT = {
             $('.fightResult').innerText = 'NPC wins'
         }
 
-        GAME.removeDice(1);
         GAME.addActionButton();
         
         setTimeout(() => {
             $('.fightScene').style.display = 'none';
-        }, 1000);
+        }, 2000);
         
     }
 
