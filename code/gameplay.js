@@ -26,6 +26,8 @@ const GAME = {
     playerCount: 0,
     players: [],
     round: 0,
+    gameTick: 0,
+    gameRound:0,
 
     addEvents() { // getCoords
 
@@ -112,7 +114,12 @@ const GAME = {
         this.round = (this.round + 1) % this.players.length;
         this.displayCurrentPlayer();
         DICE.rollDice();
-        this.addbuttonDisplay()
+        this.addbuttonDisplay();
+        this.gameTick ++;
+        if (this.gameTick % this.playerCount === 0) {
+            this.gameRound ++
+        }
+        CHEST.checkChests();
     },
 
 

@@ -25,26 +25,46 @@ const itemList = [
 const CHEST = {
 
     chests: [
-        {
-            location: 'nw',
+        {   
+            selector: 0,
+            index: 0,
             open: false,
             openRound: 0,
+            coords: {
+                x: 1,
+                y: 1
+            }
         },
-        {
-            location: 'ne',
+        {   
+            selector: 1,
+            index: 14,
             open: false,
             openRound: 0,
+            coords: {
+                x: 1,
+                y: 15
+            }
         },
         {
-            location: 'sw',
+            selector: 2,
+            index: 210,
             open: false,
             openRound: 0,
+            coords: {
+                x: 15,
+                y: 1
+            }
         },
         {
-            location: 'se',
+            selector: 3,
+            index: 224,
             open: false,
             openRound: 0,
-        },
+            coords: {
+                x: 15,
+                y: 15
+            }
+        }
     ],
     createNewTreasure() {
         const thisTreasure = this.randomTreasure();
@@ -84,7 +104,21 @@ const CHEST = {
             $('.treasureCard').style.transform = "scale(1)"
         }, 100);
 
-    }
+    },
 
+    emptyChest(chest) {
+        MAP.map[chest.index] = 'C',
+        $$('.chest')[chest.selector].style.backgroundColor = "black";
+        chest.openRound = GAME.gameRound + 3;
+    },
+
+    checkChests() {
+        this.chests.forEach(chest => {
+            if (chest.openRound === GAME.gameRound) {
+                MAP.map[chest.index] = 'c',
+                $$('.chest')[chest.selector].style.backgroundColor = "brown";
+            }
+        })
+    },
 
 }
