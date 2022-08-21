@@ -41,6 +41,18 @@ const MAP = {
         return $('#map').offsetWidth / this.size * (n - 1)
     },
 
+    freeLocation() { // need to check out for players and npc too 
+        let freeMap = []
+
+        this.map.forEach((loc, index) => {
+            if (loc === '.') {
+                freeMap.push(index)
+            }
+        })
+
+        return freeMap[Math.floor(Math.random() * freeMap.length)]
+    },
+
     drawMap() {
         this.map.forEach((loc, index) => {
 
