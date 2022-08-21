@@ -95,6 +95,8 @@ const MAP = {
     playEvent() { // plays event depending on player location on map
         if (this.activePlayerLocation() === 'x') {
             DICE.addSixDie()
+        } else if (this.activePlayerLocation() === 'c') {
+            CHEST.createNewTreasure()
         }
         // else if 'c'
         // else if  'd'

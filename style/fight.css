@@ -1,4 +1,5 @@
-.fightScene {
+.fightScene,
+.treasureDisplay {
     display: none;
     position: absolute;
     z-index: 1000;
@@ -11,100 +12,91 @@
     align-items: center;
 }
 
-.fightDisplay, .status {
-    padding: 1rem;
-    background-color: white;
+.fightDisplay {
+    height: 50%;
     display: flex;
-    align-items: center;
+    background-color: white;
+    padding: 2rem;
 }
-
-
 
 .fighter {
-    height: 100%;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.fPicture {
-    height:40%;
+.fighter .avatar {
+    height: 60%;
     aspect-ratio: 1;
-    background-color: violet;
 }
 
+.fighter .healthBar {
+    height: 2rem;
+}
 
-.healthValue,
-.npcHealthValue,
-.attack,
-.defence,
-.gold {
-    height: 4rem;
+.fighter .status {
+    display: flex;
+    justify-content: space-around;
+}
+
+.fighter .status .statIcon {
+    height: 3rem;
     aspect-ratio: 1;
+    background-position: center;
     background-size: cover;
-    
 }
 
-.attack {
-    margin: 0 .5rem;
-    background-image: url(../media/attack.svg);
+/* ---------------- */
+
+.fightMenu {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    aspect-ratio: 1;
 }
-
-.healthValue,
-.npcHealthValue {
-    background-image: url(../media/life.svg);
-}
-
-.defence {
-    background-image: url(../media/defence.svg);
-}
-
-
 
 .fightStats {
     flex: 1;
     width: 100%;
-    background-color: antiquewhite;
     display: flex;
+}
+
+.fightAction {
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    flex: 1;
+}
+
+.fightAction .attack,
+.fightAction .defence {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-position: center;
+    background-size: cover;
+    width: 5rem;
+    aspect-ratio: 1;
+    color: white;
+    font-size: 3rem;
 }
 
 .fightResult {
-    flex: 1;
-    font-size: 10rem;
-}
-
-.fightStats {
-    flex: 1;
-}
-
-.thisAction,
-.thisDie {
-    height: 4rem;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background-color: rebeccapurple;
-}
-
-.thisDie {
-    background-color: grey;
-    border-radius: 1rem;
-}
-
-
-
-.fightOptions {
-    width: 12rem;
-    height: 4rem;
-    background-color: white;
-    border: 5px solid red;
-    border-radius: 9999px;
+    width: 60%;
+    font-size: 5rem;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
-.attackAction,
-.defenceAction {
+.fightOptions {
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.fightOptions .statIcon{ 
     height: 3rem;
     aspect-ratio: 1;
-    background-size: cover;
 }
 

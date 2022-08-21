@@ -1,19 +1,17 @@
-.moveController {
-    height: 15rem;
-    width: 100%;
-    background-color: aqua;
+
+.controlsWindow {
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    background-color: tomato;
 }
 
 .moveButtons {
-    height: 100%;
+    width: 30%;
     aspect-ratio: 1;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    padding: 1rem;
 }
 
 .arrowButton {
@@ -25,8 +23,6 @@
     cursor: pointer;
     transition: .2s;
 }
-
-
 
 .north {
     grid-column-start: 2;
@@ -72,39 +68,38 @@
     transform: scale(1.1)  rotate(180deg);
 }
 
+/* ------------- */ 
 
-.actionButton {
-    width: 60%;
-}
-
-.endTurn, .fight {
-    width: 50%;
-    height: 4rem;
-    color: white;
-    border-radius: 2rem;
-    cursor: pointer;
-    text-align: center;
+.diceWrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
     padding: 1rem;
-    font-size: 2rem;
-    background-color: grey;
 }
 
-.endTurn:hover {
-    background-color: rgb(243, 97, 12);
+.diceDisplay,
+.buttonDisplay {
+    width: 100%;
+    height: 50%;
 }
 
-.diceWindow {
-    box-sizing: content-box;
-    padding: 1rem;
+.diceDisplay {
+    height: 70%;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: space-around;
     background-color: darkslategrey;
+    padding: .5rem;
 }
 
+
 .die {
-    height: 5rem;
+    height: 100%;
     aspect-ratio: 1;
+    background-size: cover;
+    background-position: center;
 }
+
 
 .die1 {
     background-image: url(../media/die1.svg);
@@ -135,40 +130,25 @@
     background-image: url(../media/die6.svg);
 }
 
-.light, 
-.chest,
-.mountainTile,
-.dragonTile,
-.villageTile {
-    background-color: yellow;
-    grid-column-end: span 1;
-    grid-row-end:  span 1;
+.buttonDisplay{
+    display: flex;
+    justify-content: center;
 }
 
-.chest {
-    background-color: brown;
+.actionButton {
+    height: 100%;
+    width: 50%;
+    background-color: blue;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 9999px;
+    font-size: 2.5rem;
+    cursor: pointer;
 }
 
-.mountainTile {
-    background-color: orange;
-}
-
-.dragonTile {
-    background-color: red;
-}
-
-.wVillage {
-    background-color: seagreen;
-}
-
-.eVillage {
-    background-color: greenyellow;
-}
-
-.nVillage {
-    background-color: cyan;
-}
-
-.sVillage {
-    background-color: gray;
+.actionButton:hover {
+    background-color: rgb(16, 16, 221);
+    transform: scale(1.1);
 }

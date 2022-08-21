@@ -22,7 +22,7 @@ const FIGHT = {
     },
 
     createScene() {
-        this.createNPC(10);
+        this.createNPC(1);
         $('.fightDisplay').innerHTML = "";
         $('.fightScene').style.display = 'flex';
         $('.fightDisplay').innerHTML += this.fighterConstructor(GAME.activePlayer()) + this.fightStatsConstructor() + this.fighterConstructor(this.activeNPC)
@@ -32,21 +32,23 @@ const FIGHT = {
 
     fighterConstructor(fighter) {
         return `
-        <div class="fighter">
+        <div class="fighter ${fighter.type === 'npc' ? 'npcFighter' : 'playerFighter'}">
 
-                <div class="fPicture"></div>
-                <h1>${fighter.name}</h1>
+                <div class="avatar">
+                    <img src="./media/avatarPlaceholder.png" alt="">
+                    <h1>${fighter.name}</h1>
+                </div>
 
                 <div class="healthBar">
-                    <div class="bar">
-                        <div class="${fighter.type === "npc" ? "npcBarValue" : "barValue"}" style="width:${100 / fighter.maxHealth * fighter.health}%" ></div>
+                    <div class="barContainer">
+                        <div class="bar" style="width:${100 / fighter.maxHealth * fighter.health}%" ></div>
                     </div>
                  </div>
 
                 <div class="status">
-                    <div class="${fighter.type === "npc" ? "npcHealthValue" : "healthValue"}" > ${fighter.health}</div>
-                    <div class="attack">${fighter.attack}</div>
-                    <div class="defence">${fighter.defence}</div>
+                    <div class="statIcon maxHealth" > ${fighter.health}</div>
+                    <div class="statIcon attack">${fighter.attack}</div>
+                    <div class="statIcon defence">${fighter.defence}</div>
                 </div>
 
             </div>`
@@ -55,25 +57,20 @@ const FIGHT = {
     fightStatsConstructor() {
         return `
             <div class="fightMenu">
+
                 <div class="fightStats">
 
-                    <div class="fightsStats playerFStats">
-                        <div class="thisAction"></div>
-                        <div class="thisDie"></div>
-                    </div>
+                    <div class="fightAction playerFightAction"></div>
 
                     <div class="fightResult">0</div>
 
-                    <div class="fightsStats npcFStats">
-                        <div class="thisAction"></div>
-                        <div class="thisDie"></div>
-                    </div>
+                    <div class="fightAction npcFightAction"></div>
 
                 </div>
 
                 <div class="fightOptions">
-                    <div class="attackAction attack"></div>
-                    <div class="defenceAction defence"></div>
+                    <div class="attackAction  statIcon attack"></div>
+                    <div class="defenceAction statIcon defence"></div>
                 </div>
             </div>`
     },
@@ -103,20 +100,23 @@ const FIGHT = {
         const winner = this.determineWinner(action, playerAction, npcAction);
 
         this.updateVisuals(winner);
+
         this.displayChoices(playerAction , npcAction)
 
-        //check win/lose condition
-        //next turn
     },
 
 
     displayChoices(playerAction, npcAction) {
         
-        $('.playerFStats .thisAction').innerHTML = `<div class="${playerAction.action}"></div>`
-        $('.playerFStats .thisDie').innerText = playerAction.die + GAME.activePlayer()[playerAction.action]
-        
-        $('.npcFStats .thisAction').innerHTML = `<div class="${npcAction.action}"></div>`
-        $('.npcFStats .thisDie').innerText = npcAction.die + this.activeNPC[playerAction.action]
+
+        $('.playerFightAction').innerHTML = `<div class="${playerAction.action === "attack" ? "attack" : "defence"}">
+            ${playerAction.action === "attack" ? playerAction.die + GAME.activePlayer().attack : playerAction.die + GAME.activePlayer().defence}
+        </div>`
+
+        $('.npcFightAction').innerHTML = `<div class="${npcAction.action === "attack" ? "attack" : "defence"}">
+            ${npcAction.action === "attack" ? npcAction.die + this.activeNPC.attack : npcAction.die + this.activeNPC.defence}
+        </div>`
+
     },
 
     determineWinner(action, player, npc) {
@@ -156,8 +156,8 @@ const FIGHT = {
     },
 
     updateNpc() {
-        $('.npcHealthValue').innerText = this.activeNPC.health;
-        $('.npcBarValue').style.width = (100 / this.activeNPC.maxHealth) * this.activeNPC.health + '%'
+        $('.npcFighter .status .maxHealth').innerText = this.activeNPC.health;
+        $('.npcFighter .bar').style.width = (100 / this.activeNPC.maxHealth) * this.activeNPC.health + '%'
     },
 
     updateVisuals(winner) {
@@ -209,13 +209,16 @@ const FIGHT = {
         if (fighter === 'player') {
             $('.fightResult').innerText = 'NPC wins';
             GAME.updatePlayerVisual()
+            setTimeout(() => {
+                GAME.resetPlayer();
+            }, 2000);
+            
         }
 
-        GAME.addActionButton();
+        GAME.addbuttonDisplay();
         
         setTimeout(() => {
             $('.fightScene').style.display = 'none';
-            GAME.resetPlayer();
         }, 2000);
         
     }

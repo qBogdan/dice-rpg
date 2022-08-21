@@ -9,10 +9,15 @@ class PLAYER {
             this.health = this.maxHealth,
             this.attack = 0,
             this.defence = 0,
-            this.gold = 120,
+            this.gold = 20,
             this.coords = {},
             this.items = [],
-            this.diceNumber = 4,
+            this.equipment = {
+                attack: undefined,
+                defence: undefined,
+                accesory: undefined
+            }
+            this.diceNumber = 6,
             this.diceRound = []
     }
 }
@@ -61,58 +66,44 @@ const GAME = {
 
     },
 
-    playerProfileConstructor() {
-        return `
-            
-        <div class="profile">
-            <div class="picture" style="background : ${this.activePlayer().color}"></div>
-            <h1>${this.activePlayer().name}</h1>
-        </div>
-        
-        <div class="statsContainer">
-
-            <div class="healthBar">
-                <div class="healthValue">${this.activePlayer().health}</div>
-                <div class="bar">
-                    <div class="barValue" style="width:${100 / this.activePlayer().maxHealth * this.activePlayer().health}%" ></div>
-                </div>
-            </div>
-
-            <div class="stats">
-                <div class="statPoint attack">${this.activePlayer().attack}</div>
-                <div class="statPoint defence">${this.activePlayer().defence}</div>
-                <div class="statPoint gold"> ${this.activePlayer().gold}</div>
-            </div>
-        </div>
-        `
-    },
-
     displayCurrentPlayer() {
-        $('.playerStats').innerHTML = this.playerProfileConstructor();
+
+        $('.playerImg').style.border =`solid 5px ${this.activePlayer().color}`;
+        $('.playerName').innerText = this.activePlayer().name;
+        $('.playerStats .gold').innerText = this.activePlayer().gold;
+        $('.playerStats .attack').innerText = this.activePlayer().attack;
+        $('.playerStats .defence').innerText = this.activePlayer().defence;
+        $('.playerStats .maxHealth').innerText = this.activePlayer().health;
+        $('.playerInfo  .bar').style.width = `${(100 / this.activePlayer().maxHealth) * this.activePlayer().health}%`;
+        INV.displayItems();
+        INV.displayEquipment();
+
     },
 
     activePlayer() { // sets controlls for the current player
         return this.players[this.round]
     },
 
-    addActionButton() {
-        $('.actionButton').innerHTML = "";
+    addbuttonDisplay() {
+        $('.buttonDisplay').innerHTML = "";
 
         let end = document.createElement('div');
         end.classList.add('endTurn');
+        end.classList.add('actionButton');
         end.innerText = 'end'
         end.addEventListener('click', () => { this.nextPlayer() });
 
         let fight = document.createElement('div');
         fight.classList.add('fight');
+        fight.classList.add('actionButton');
         fight.innerText = 'fight';
         fight.addEventListener('click', () => { FIGHT.createScene() })
 
 
         if (this.activePlayer().diceRound.find(n => n === 1) === 1) {
-            $('.actionButton').append(fight)
+            $('.buttonDisplay').append(fight)
         } else {
-            $('.actionButton').append(end)
+            $('.buttonDisplay').append(end)
         }
 
     },
@@ -121,9 +112,7 @@ const GAME = {
         this.round = (this.round + 1) % this.players.length;
         this.displayCurrentPlayer();
         DICE.rollDice();
-        this.addActionButton()
-        // probably will be replaced by a button
-        // change player display
+        this.addbuttonDisplay()
     },
 
 
@@ -206,28 +195,28 @@ const GAME = {
 
 
     startGame() {
-        this.addPlayer("Bogdan", 'darkgrey');
+        this.addPlayer("Bogdan", 'black');
         this.addPlayer("Liviuta", 'darkred');
-        this.addPlayer("Gabi", 'orange');
-        this.addPlayer("Andrei", 'blue');
-        this.addPlayer("Maduta", 'green');
+        this.addPlayer("Gabi", 'purple');
+        this.addPlayer("Andrei", 'darkblue');
+        this.addPlayer("Maduta", 'darkgreen');
 
+        INV.addEvents();
         this.addEvents();
         DICE.rollDice();
         MAP.drawMap();
         this.displayCurrentPlayer();
-        this.addActionButton()
+        this.addbuttonDisplay()
 
     },
 
     updatePlayerVisual() {
-        $$('.healthValue').forEach(val => {
-            val.innerText = GAME.activePlayer().health;
-        });
+        $('.playerStats .maxHealth').innerText = GAME.activePlayer().health;
+        $('.playerFighter .maxHealth').innerText = GAME.activePlayer().health;
 
-        $$('.barValue').forEach(val => {
-            val.style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
-        })
+        $('.playerInfo .bar').style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
+        $('.playerFighter .bar').style.width = (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + '%';
+    
     },
 
     resetPlayer() {

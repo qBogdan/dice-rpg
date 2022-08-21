@@ -1,7 +1,7 @@
 const DICE = {
 
     createDice() { // create random dice elements 
-        $('.diceWindow').innerHTML = ""; // resets dice container element
+        $('.diceDisplay').innerHTML = ""; // resets dice container element
         GAME.activePlayer().diceRound = []; // resets current dice array
 
         let startN = 1;
@@ -10,6 +10,7 @@ const DICE = {
         for (let i = 0; i < GAME.activePlayer().diceNumber; i++) {
 
             let dieR = Math.floor(Math.random() * endN) + startN; // creates random number
+            //let dieR = 6; // temp all 6
 
             if (dieR === 1) { // prevents game from having more than one attack per turn 
                 startN = 2;
@@ -21,8 +22,8 @@ const DICE = {
             die.classList.add(`die${dieR}`);
 
             GAME.activePlayer().diceRound.push(dieR) // push die number to player array
-
-            $('.diceWindow').append(die)
+            
+            $('.diceDisplay').append(die)
         }
     },
 
@@ -38,7 +39,7 @@ const DICE = {
         let six = document.createElement('div');
         six.classList.add('die');
         six.classList.add('die6');
-        $('.diceWindow').append(six)
+        $('.diceDisplay').append(six)
     },
 
 
