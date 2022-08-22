@@ -41,16 +41,28 @@ const MAP = {
         return $('#map').offsetWidth / this.size * (n - 1)
     },
 
+    compareCoords(set1, set2) {
+        return set1.x === set2.x && set1.y === set2.y;
+    },
+
     freeLocation() { // need to check out for players and npc too 
         let freeMap = []
 
         this.map.forEach((loc, index) => {
-            if (loc === '.') {
-                freeMap.push(index)
+            if (loc === '.') freeMap.push(index)
+        })
+
+        let location = freeMap[Math.floor(Math.random() * freeMap.length)];
+
+        GAME.charactersLocation().forEach(coord => {
+            if (this.compareCoords(coord, this.indexCoords(location))) {
+                console.log("skip location", location);
+                this.freeLocation()
             }
         })
 
-        return freeMap[Math.floor(Math.random() * freeMap.length)]
+        return location
+
     },
 
     drawMap() {
@@ -89,6 +101,9 @@ const MAP = {
                 place.classList.add('villageTile');
                 place.classList.add('wVillage');
                 $('#map').append(place);
+            } else if (loc === "Q") {
+                place.classList.add('artifact');
+                $('#map').append(place)
             }
         })
 

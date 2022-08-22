@@ -116,10 +116,15 @@ body {
 .chest,
 .mountainTile,
 .dragonTile,
-.villageTile {
+.villageTile,
+.artifact {
     background-color: yellow;
     grid-column-end: span 1;
     grid-row-end:  span 1;
+}
+
+.artifact {
+    background-color: white;
 }
 
 .chest {

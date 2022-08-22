@@ -82,6 +82,11 @@ const GAME = {
 
     },
 
+    charactersLocation() {
+        let coords = [];
+        return this.players.map(x => x.coords)
+    },
+
     activePlayer() { // sets controlls for the current player
         return this.players[this.round]
     },

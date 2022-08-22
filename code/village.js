@@ -5,6 +5,8 @@ const VILLAGE = {
 
     createItem(village) { // creates and places an object for the specified village
 
+        MAP.map[MAP.freeLocation()] = 'Q'
+        MAP.drawMap()
     },
 
     removeItem() { // removes object once grabbed by a player
