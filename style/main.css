@@ -200,3 +200,18 @@ body {
     justify-content: center;
     align-items: center;
 }
+
+.cancel,
+.take {
+    padding: 1rem;
+    color: white;
+    background-color: rgb(48, 48, 48);
+    border-radius: 1rem;
+    font-size: 2rem;
+    cursor: pointer;
+
+}
+
+.cancel:hover, .take:hover {
+    transform: scale(1.1);
+}

@@ -96,7 +96,7 @@ const CHEST = {
         if (type === "treasure") {
             item = itemList[Math.floor(Math.random() * itemList.length)];
         } else {
-            item = { ...artifactList[artifactList.findIndex((a) => a.village === type)] };
+            item = { ...artifactList[artifactList.findIndex(a => a.village === type)] };
         }
 
         this.displayTreasure(type, item);
@@ -111,7 +111,25 @@ const CHEST = {
         treasureCard.style.backgroundImage = `url(./media/items/${treasure.img})`;
         treasureCard.dataset.bonus = treasure.bonus;
 
-        treasureCard.addEventListener("click", () => {
+        let cancel = document.createElement("div");
+        cancel.innerText = "Cancel";
+        cancel.classList.add("cancel");
+        let take = document.createElement("div");
+        take.innerText = "Take";
+        take.classList.add("take");
+
+        cancel.addEventListener("click", () => {
+            $(".treasureCard").style.transform = "scale(0)";
+
+            setTimeout(() => {
+                $(".treasureDisplay").style.display = "none";
+            }, 500);
+
+            $(".take").style.pointerEvents = "none";
+            $(".cancel").style.pointerEvents = "none";
+        });
+
+        take.addEventListener("click", () => {
             $(".treasureCard").style.transform = "scale(0)";
 
             setTimeout(() => {
@@ -120,10 +138,12 @@ const CHEST = {
 
             INV.addItem(treasure);
             VILLAGE.removeItem();
+            $(".take").style.pointerEvents = "none";
+            $(".cancel").style.pointerEvents = "none";
         });
 
+        $(".treasureDisplay").append(treasureCard, cancel, take);
         $(".treasureDisplay").style.display = "flex";
-        $(".treasureDisplay").append(treasureCard);
 
         setTimeout(() => {
             $(".treasureCard").style.transform = "scale(1)";
@@ -137,7 +157,7 @@ const CHEST = {
     },
 
     checkChests() {
-        this.chests.forEach((chest) => {
+        this.chests.forEach(chest => {
             if (chest.openRound === GAME.gameRound) {
                 (MAP.map[chest.index] = "c"),
                     ($$(".chest")[chest.selector].style.backgroundColor = "brown");

@@ -38,4 +38,21 @@ const VILLAGE = {
 
         MAP.drawMap();
     },
+
+    enterVillage(village) {
+        this.checkPlayerItems(village);
+        //reward player
+        //update player
+        //add shop button
+    },
+
+    checkPlayerItems(village) {
+        GAME.activePlayer().items.forEach((item, index) => {
+            if (item.village === village.toLowerCase()) {
+                GAME.activePlayer().gold += item.bonus;
+                GAME.activePlayer().items.splice(index, 1);
+            }
+        });
+        GAME.displayCurrentPlayer();
+    },
 };

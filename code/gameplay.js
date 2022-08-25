@@ -30,13 +30,13 @@ const GAME = {
     addEvents() {
         // getCoords
 
-        $$(".arrowButton").forEach((ar) => {
-            ar.addEventListener("click", (e) => {
+        $$(".arrowButton").forEach(ar => {
+            ar.addEventListener("click", e => {
                 this.move(e.target.dataset.direction);
             });
         });
 
-        document.addEventListener("keydown", (e) => {
+        document.addEventListener("keydown", e => {
             if (e.key === "Escape") {
                 $(".fightScene").style.display = "none";
             }
@@ -79,7 +79,7 @@ const GAME = {
     },
 
     charactersLocation() {
-        return this.players.map((x) => MAP.getIndex(x.coords.x, x.coords.y));
+        return this.players.map(x => MAP.getIndex(x.coords.x, x.coords.y));
     },
 
     activePlayer() {
@@ -106,7 +106,7 @@ const GAME = {
             FIGHT.createScene();
         });
 
-        if (this.activePlayer().diceRound.find((n) => n === 1) === 1) {
+        if (this.activePlayer().diceRound.find(n => n === 1) === 1) {
             $(".buttonDisplay").append(fight);
         } else {
             $(".buttonDisplay").append(end);
@@ -172,7 +172,7 @@ const GAME = {
         now[inst[direction].dir] += inst[direction].val;
         let hasNeighbour;
 
-        this.players.forEach((player) => {
+        this.players.forEach(player => {
             if (JSON.stringify(player.coords) === JSON.stringify(now)) {
                 hasNeighbour = true;
             }
@@ -186,15 +186,9 @@ const GAME = {
     },
 
     checkPath(inst, direction) {
-        let nextDir =
-            this.activePlayer().coords[inst[direction].dir] +
-            inst[direction].val;
+        let nextDir = this.activePlayer().coords[inst[direction].dir] + inst[direction].val;
 
-        if (
-            nextDir > 0 &&
-            nextDir < MAP.size + 1 &&
-            !this.chekNeighbor(inst, direction)
-        ) {
+        if (nextDir > 0 && nextDir < MAP.size + 1 && !this.chekNeighbor(inst, direction)) {
             return true;
         } else {
             return false;
@@ -205,20 +199,18 @@ const GAME = {
         // moves the player Element
         const pawn = $(`.${this.activePlayer().selector}`);
         pawn.style[inst[direction].axis] =
-            MAP.getCoords(
-                this.activePlayer().coords[inst[direction].dir] +
-                    inst[direction].val
-            ) + "px";
+            MAP.getCoords(this.activePlayer().coords[inst[direction].dir] + inst[direction].val) +
+            "px";
         this.activePlayer().coords[inst[direction].dir] += inst[direction].val;
         MAP.playEvent();
     },
 
     startGame() {
         this.addPlayer("Bogdan", "black");
-        this.addPlayer("Liviuta", "darkred");
-        this.addPlayer("Gabi", "purple");
-        this.addPlayer("Andrei", "darkblue");
-        this.addPlayer("Maduta", "darkgreen");
+        // this.addPlayer("Liviuta", "darkred");
+        // this.addPlayer("Gabi", "purple");
+        // this.addPlayer("Andrei", "darkblue");
+        // this.addPlayer("Maduta", "darkgreen");
 
         INV.addEvents();
         this.addEvents();
@@ -233,11 +225,9 @@ const GAME = {
         $(".playerFighter .maxHealth").innerText = GAME.activePlayer().health;
 
         $(".playerInfo .bar").style.width =
-            (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health +
-            "%";
+            (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + "%";
         $(".playerFighter .bar").style.width =
-            (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health +
-            "%";
+            (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + "%";
     },
 
     resetPlayer() {
