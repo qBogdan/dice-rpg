@@ -1,17 +1,41 @@
 const VILLAGE = {
+    villageTick: 0,
+    villages: [
+        {
+            name: "W",
+            color: "green",
+            mapChar: "w",
+            shopItems: [],
+        },
+        {
+            name: "N",
+            color: "green",
+            mapChar: "n",
+            shopItems: [],
+        },
+        {
+            name: "E",
+            color: "green",
+            mapChar: "e",
+            shopItems: [],
+        },
+    ],
 
-    villages: [], // list of villages objects
-    items: [], // village Items
-
-    createItem(village) { // creates and places an object for the specified village
-
-        MAP.map[MAP.freeLocation()] = 'Q'
-        MAP.drawMap()
+    placeArtifact() {
+        if (GAME.gameTick === this.villageTick + 3) {
+            this.createItem(this.villages[Math.floor(Math.random() * this.villages.length)]);
+            this.villageTick = GAME.gameTick;
+        }
     },
 
-    removeItem() { // removes object once grabbed by a player
+    createItem(village) {
+        MAP.map[MAP.getFreeLocation()] = village.mapChar;
+        MAP.drawMap();
+    },
 
-    }
+    removeItem() {
+        MAP.map[MAP.getIndex(GAME.activePlayer().coords.x, GAME.activePlayer().coords.y)] = ".";
 
-
-}
+        MAP.drawMap();
+    },
+};

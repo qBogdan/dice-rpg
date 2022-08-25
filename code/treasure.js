@@ -1,49 +1,72 @@
 class TREASURE {
     constructor() {
-        this.items = []
+        this.items = [];
     }
 }
 
 const itemList = [
     {
-        name: 'armor',
-        type: 'defence',
-        slot: 'armor',
+        name: "armor",
+        type: "defence",
+        slot: "armor",
         bonus: 3,
-        img: 'outfit4.png'
+        img: "outfit4.png",
     },
 
     {
-        name: 'Fancy armor',
-        type: 'defence',
-        slot: 'armor',
+        name: "Fancy armor",
+        type: "defence",
+        slot: "armor",
         bonus: 7,
-        img: 'outfit19.png'
-    }
-]
+        img: "outfit19.png",
+    },
+];
+
+const artifactList = [
+    {
+        type: "artifact",
+        village: "w",
+        bonus: 10,
+        index: 0,
+        img: "WArtifact.png",
+    },
+    {
+        type: "artifact",
+        village: "e",
+        bonus: 10,
+        index: 0,
+        img: "EArtifact.png",
+    },
+    {
+        type: "artifact",
+        village: "n",
+        bonus: 10,
+        index: 0,
+        img: "NArtifact.png",
+    },
+];
 
 const CHEST = {
-
     chests: [
-        {   
+        {
             selector: 0,
             index: 0,
             open: false,
             openRound: 0,
             coords: {
                 x: 1,
-                y: 1
-            }
+                y: 1,
+            },
         },
-        {   
+        {
             selector: 1,
             index: 14,
             open: false,
             openRound: 0,
             coords: {
                 x: 1,
-                y: 15
-            }
+                y: 15,
+            },
         },
         {
             selector: 2,
@@ -52,8 +75,8 @@ const CHEST = {
             openRound: 0,
             coords: {
                 x: 15,
-                y: 1
-            }
+                y: 1,
+            },
         },
         {
             selector: 3,
@@ -62,63 +85,63 @@ const CHEST = {
             openRound: 0,
             coords: {
                 x: 15,
-                y: 15
-            }
-        }
+                y: 15,
+            },
+        },
     ],
-    createNewTreasure() {
-        const thisTreasure = this.randomTreasure();
-        this.displayTreasure(thisTreasure)
+
+    createNewTreasure(type) {
+        let item;
+
+        if (type === "treasure") {
+            item = itemList[Math.floor(Math.random() * itemList.length)];
+        } else {
+            item = { ...artifactList[artifactList.findIndex((a) => a.village === type)] };
+        }
+
+        this.displayTreasure(type, item);
     },
 
-    randomTreasure() {
-        return itemList[Math.floor(Math.random() * itemList.length)]
-    },
+    displayTreasure(type, treasure) {
+        $(".treasureDisplay").innerHTML = "";
 
-    displayTreasure(thisTreasure) {
-        $('.treasureDisplay').innerHTML = ""
+        const treasureCard = document.createElement("div");
+        treasureCard.classList.add("treasureCard");
+        treasureCard.classList.add("showBonus");
+        treasureCard.style.backgroundImage = `url(./media/items/${treasure.img})`;
+        treasureCard.dataset.bonus = treasure.bonus;
 
-        const treasureCard = document.createElement('div');
-        treasureCard.classList.add('treasureCard');
-        treasureCard.classList.add('showBonus');
-        treasureCard.style.backgroundImage = `url(./media/items/${thisTreasure.img})`;
-        treasureCard.dataset.bonus = thisTreasure.bonus;
-
-
-        treasureCard.addEventListener('click', (treasureCard) => {
-
-            $('.treasureCard').style.transform = "scale(0)";
+        treasureCard.addEventListener("click", () => {
+            $(".treasureCard").style.transform = "scale(0)";
 
             setTimeout(() => {
-                $('.treasureDisplay').style.display = 'none';
+                $(".treasureDisplay").style.display = "none";
             }, 500);
 
-            INV.addItem(thisTreasure)
-        })
+            INV.addItem(treasure);
+            VILLAGE.removeItem();
+        });
 
-
-        $('.treasureDisplay').style.display = 'flex';
-        $('.treasureDisplay').append(treasureCard);
+        $(".treasureDisplay").style.display = "flex";
+        $(".treasureDisplay").append(treasureCard);
 
         setTimeout(() => {
-            $('.treasureCard').style.transform = "scale(1)"
+            $(".treasureCard").style.transform = "scale(1)";
         }, 100);
-
     },
 
     emptyChest(chest) {
-        MAP.map[chest.index] = 'C',
-        $$('.chest')[chest.selector].style.backgroundColor = "black";
+        (MAP.map[chest.index] = "C"),
+            ($$(".chest")[chest.selector].style.backgroundColor = "black");
         chest.openRound = GAME.gameRound + 3;
     },
 
     checkChests() {
-        this.chests.forEach(chest => {
+        this.chests.forEach((chest) => {
             if (chest.openRound === GAME.gameRound) {
-                MAP.map[chest.index] = 'c',
-                $$('.chest')[chest.selector].style.backgroundColor = "brown";
+                (MAP.map[chest.index] = "c"),
+                    ($$(".chest")[chest.selector].style.backgroundColor = "brown");
             }
-        })
+        });
     },
-
-}
+};

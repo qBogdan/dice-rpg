@@ -1,117 +1,109 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>dice rpg</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dice rpg</title>
+        <link
+            rel="shortcut icon"
+            href="./media/favIcon.svg"
+            type="image/x-icon"
+        />
 
-    <link rel="shortcut icon" href="./media/favIcon.svg" type="image/x-icon">
+        <link rel="stylesheet" href="./style/main.css" />
+        <link rel="stylesheet" href="./style/player.css" />
+        <link rel="stylesheet" href="./style/arrows.css" />
+        <link rel="stylesheet" href="./style/fight.css" />
 
-    <link rel="stylesheet" href="./style/main.css">
-    <link rel="stylesheet" href="./style/player.css">
-    <link rel="stylesheet" href="./style/arrows.css">
-    <link rel="stylesheet" href="./style/fight.css">
+        <script src="./code/village.js" defer></script>
+        <script src="./code/inventory.js" defer></script>
+        <script src="./code/treasure.js" defer></script>
+        <script src="./code/dice.js" defer></script>
+        <script src="./code/map.js" defer></script>
+        <script src="./code/gameplay.js" defer></script>
+        <script src="./code/fight.js" defer></script>
+        <script src="./code/main.js" defer></script>
+    </head>
 
-    <script src="./code/village.js" defer></script>
-    <script src="./code/inventory.js" defer></script>
-    <script src="./code/treasure.js" defer></script>
-    <script src="./code/dice.js" defer></script>
-    <script src="./code/map.js" defer></script>
-    <script src="./code/gameplay.js" defer></script>
-    <script src="./code/fight.js" defer></script>
-    <script src="./code/main.js" defer></script>
-</head>
-
-<body>
-
-    <div class="fightScene">
-
-        <div class="fightDisplay">
+    <body>
+        <div class="fightScene">
+            <div class="fightDisplay"></div>
         </div>
 
-    </div>
+        <div class="treasureDisplay"></div>
 
-    <div class="treasureDisplay"></div>
+        <section id="gameWindow">
+            <div id="map"></div>
+        </section>
 
-    <section id="gameWindow">
+        <section id="actionWindow">
+            <div class="activePlayer">
+                <div class="playerProfile">
+                    <div class="avatar">
+                        <img
+                            class="playerImg"
+                            src="./media/avatarPlaceholder.png"
+                            alt=""
+                        />
+                        <h1 class="playerName">Player Name</h1>
+                    </div>
 
-        <div id="map">
-        </div>
-
-    </section>
-
-    <section id="actionWindow">
-
-        <div class="activePlayer">
-
-            <div class="playerProfile">
-
-                <div class="avatar">
-                    <img class="playerImg" src="./media/avatarPlaceholder.png" alt="">
-                    <h1 class="playerName">Player Name</h1>
-                </div>
-
-                <div class="playerStats">
-                    <div class="statIcon gold">1</div>
-                    <div class="statIcon attack">2</div>
-                    <div class="statIcon defence">3</div>
-                    <div class="statIcon maxHealth">4</div>
-                </div>
-
-              
-            </div>
-
-            <div class="playerInfo">
-
-                <div class="playerEquipment">
-                    <div data-slot="weaponSlot" class="equipmentSlot weapon"></div>
-                    <div data-slot="armorSlot" class="equipmentSlot armor"></div>
-                    <div data-slot="accesorySlot" class="equipmentSlot accesory"></div>
-                </div>
-    
-                <div class="healthBar">
-                    <div class="barContainer">
-                        <div class="bar"></div>
+                    <div class="playerStats">
+                        <div class="statIcon gold">1</div>
+                        <div class="statIcon attack">2</div>
+                        <div class="statIcon defence">3</div>
+                        <div class="statIcon maxHealth">4</div>
                     </div>
                 </div>
 
-            </div>
+                <div class="playerInfo">
+                    <div class="playerEquipment">
+                        <div
+                            data-slot="weaponSlot"
+                            class="equipmentSlot weapon"
+                        ></div>
+                        <div
+                            data-slot="armorSlot"
+                            class="equipmentSlot armor"
+                        ></div>
+                        <div
+                            data-slot="accesorySlot"
+                            class="equipmentSlot accesory"
+                        ></div>
+                    </div>
 
-            
-        </div>
-
-        <div class="inventoryWindow">
-            <div class="inventorySlot"></div>
-            <div class="inventorySlot"></div>
-            <div class="inventorySlot"></div>
-            <div class="inventorySlot"></div>
-            <div class="inventorySlot"></div>
-            <div class="inventorySlot"></div>
-        </div>
-
-        <div class="controlsWindow">
-
-            <div class="controls moveButtons">
-                <div data-direction="n" class="arrowButton north"></div>
-                <div data-direction="w" class="arrowButton west"></div>
-                <div data-direction="e" class="arrowButton east"></div>
-                <div data-direction="s" class="arrowButton south"></div>
-            </div>
-
-            <div class="diceWrap">            
-                <div class="diceDisplay">
+                    <div class="healthBar">
+                        <div class="barContainer">
+                            <div class="bar"></div>
+                        </div>
+                    </div>
                 </div>
-                <div class="buttonDisplay"></div>
             </div>
 
-        </div>
+            <div class="inventoryWindow">
+                <div class="inventorySlot"></div>
+                <div class="inventorySlot"></div>
+                <div class="inventorySlot"></div>
+                <div class="inventorySlot"></div>
+                <div class="inventorySlot"></div>
+                <div class="inventorySlot"></div>
+            </div>
 
-        
+            <div class="controlsWindow">
+                <div class="controls moveButtons">
+                    <div data-direction="n" class="arrowButton north"></div>
+                    <div data-direction="w" class="arrowButton west"></div>
+                    <div data-direction="e" class="arrowButton east"></div>
+                    <div data-direction="s" class="arrowButton south"></div>
+                </div>
 
-    </section>
-
-</body>
-
+                <div class="diceWrap">
+                    <div class="diceDisplay"></div>
+                    <div class="buttonDisplay"></div>
+                </div>
+            </div>
+        </section>
+    </body>
 </html>

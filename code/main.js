@@ -1,11 +1,9 @@
-
 function $(selector) {
-    return document.querySelector(selector)
-};
-
-function $$(selector) {
-    return document.querySelectorAll(selector)
+    return document.querySelector(selector);
 }
 
-GAME.startGame()
+function $$(selector) {
+    return document.querySelectorAll(selector);
+}
 
+GAME.startGame();

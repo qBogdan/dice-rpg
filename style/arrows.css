@@ -1,4 +1,3 @@
-
 .controlsWindow {
     display: flex;
     width: 100%;
@@ -21,7 +20,7 @@
     font-size: 3rem;
     text-align: center;
     cursor: pointer;
-    transition: .2s;
+    transition: 0.2s;
 }
 
 .north {
@@ -51,7 +50,7 @@
     grid-column-start: 2;
     grid-column-end: 3;
     grid-row-start: 3;
-    grid-row-end:3;
+    grid-row-end: 3;
     transform: rotate(180deg);
 }
 
@@ -59,16 +58,16 @@
     transform: scale(1.1);
 }
 .west:hover {
-    transform: scale(1.1)  rotate(-90deg);
+    transform: scale(1.1) rotate(-90deg);
 }
 .east:hover {
-    transform: scale(1.1)  rotate(90deg);
+    transform: scale(1.1) rotate(90deg);
 }
 .south:hover {
-    transform: scale(1.1)  rotate(180deg);
+    transform: scale(1.1) rotate(180deg);
 }
 
-/* ------------- */ 
+/* ------------- */
 
 .diceWrap {
     width: 100%;
@@ -89,9 +88,8 @@
     display: flex;
     justify-content: space-around;
     background-color: darkslategrey;
-    padding: .5rem;
+    padding: 0.5rem;
 }
-
 
 .die {
     height: 100%;
@@ -100,37 +98,31 @@
     background-position: center;
 }
 
-
 .die1 {
     background-image: url(../media/die1.svg);
 }
-
 
 .die2 {
     background-image: url(../media/die2.svg);
 }
 
-
 .die3 {
     background-image: url(../media/die3.svg);
 }
-
 
 .die4 {
     background-image: url(../media/die4.svg);
 }
 
-
 .die5 {
     background-image: url(../media/die5.svg);
 }
-
 
 .die6 {
     background-image: url(../media/die6.svg);
 }
 
-.buttonDisplay{
+.buttonDisplay {
     display: flex;
     justify-content: center;
 }
