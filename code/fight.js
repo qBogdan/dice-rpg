@@ -31,9 +31,7 @@ const FIGHT = {
 
     fighterConstructor(fighter) {
         return `
-        <div class="fighter ${
-            fighter.type === "npc" ? "npcFighter" : "playerFighter"
-        }">
+        <div class="fighter ${fighter.type === "npc" ? "npcFighter" : "playerFighter"}">
 
                 <div class="avatar">
                     <img src="./media/avatarPlaceholder.png" alt="">
@@ -135,15 +133,9 @@ const FIGHT = {
         };
 
         if (action === "attack") {
-            if (
-                player.die + GAME.activePlayer().attack ===
-                npc.die + this.activeNPC[action]
-            ) {
+            if (player.die + GAME.activePlayer().attack === npc.die + this.activeNPC[action]) {
                 (winner.name = "none"), (winner.hit = 0);
-            } else if (
-                player.die + GAME.activePlayer().attack >
-                npc.die + this.activeNPC[action]
-            ) {
+            } else if (player.die + GAME.activePlayer().attack > npc.die + this.activeNPC[action]) {
                 winner.name = "player";
                 winner.hit =
                     npc.action === "attack"
@@ -153,18 +145,14 @@ const FIGHT = {
                           (this.activeNPC.defence + npc.die);
             } else {
                 winner.name = "npc";
-                winner.hit =
-                    npc.action === "attack"
-                        ? npc.die + this.activeNPC.attack
-                        : 1;
+                winner.hit = npc.action === "attack" ? npc.die + this.activeNPC.attack : 1;
             }
         }
 
         if (action === "defence") {
             if (
                 npc.action === "defence" ||
-                player.die + GAME.activePlayer().defence ===
-                    npc.die + this.activeNPC[action]
+                player.die + GAME.activePlayer().defence === npc.die + this.activeNPC[action]
             ) {
                 (winner.name = "none"), (winner.hit = 0);
             } else if (
@@ -176,9 +164,7 @@ const FIGHT = {
             } else {
                 winner.name = "npc";
                 winner.hit =
-                    npc.die +
-                    this.activeNPC.attack -
-                    (GAME.activePlayer().defence + player.die);
+                    npc.die + this.activeNPC.attack - (GAME.activePlayer().defence + player.die);
             }
         }
 
@@ -197,9 +183,7 @@ const FIGHT = {
         } else if (winner.name === "player") {
             $(".fightResult").style.color = "blue";
             this.activeNPC.health =
-                this.activeNPC.health - winner.hit < 0
-                    ? 0
-                    : this.activeNPC.health - winner.hit;
+                this.activeNPC.health - winner.hit < 0 ? 0 : this.activeNPC.health - winner.hit;
 
             if (this.activeNPC.health <= 0) {
                 this.fighterDead("npc");
@@ -240,9 +224,6 @@ const FIGHT = {
                 GAME.resetPlayer();
             }, 2000);
         }
-
-        GAME.addbuttonDisplay();
-
         setTimeout(() => {
             $(".fightScene").style.display = "none";
         }, 2000);

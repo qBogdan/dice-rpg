@@ -16,7 +16,7 @@ class PLAYER {
                 defence: undefined,
                 accesory: undefined,
             });
-        (this.diceNumber = 6), (this.diceRound = []);
+        (this.diceNumber = 9), (this.diceRound = []);
     }
 }
 
@@ -30,13 +30,21 @@ const GAME = {
     addEvents() {
         // getCoords
 
-        $$(".arrowButton").forEach(ar => {
-            ar.addEventListener("click", e => {
+        $$(".arrowButton").forEach((ar) => {
+            ar.addEventListener("click", (e) => {
                 this.move(e.target.dataset.direction);
             });
         });
 
-        document.addEventListener("keydown", e => {
+        $(".endButton").addEventListener("click", () => {
+            this.nextPlayer();
+        });
+
+        $(".shopButton").addEventListener("click", () => {
+            this.openShop(village);
+        });
+
+        document.addEventListener("keydown", (e) => {
             if (e.key === "Escape") {
                 $(".fightScene").style.display = "none";
             }
@@ -79,7 +87,7 @@ const GAME = {
     },
 
     charactersLocation() {
-        return this.players.map(x => MAP.getIndex(x.coords.x, x.coords.y));
+        return this.players.map((x) => MAP.getIndex(x.coords.x, x.coords.y));
     },
 
     activePlayer() {
@@ -87,44 +95,20 @@ const GAME = {
         return this.players[this.round];
     },
 
-    addbuttonDisplay() {
-        $(".buttonDisplay").innerHTML = "";
-
-        let end = document.createElement("div");
-        end.classList.add("endTurn");
-        end.classList.add("actionButton");
-        end.innerText = "end";
-        end.addEventListener("click", () => {
-            this.nextPlayer();
-        });
-
-        let fight = document.createElement("div");
-        fight.classList.add("fight");
-        fight.classList.add("actionButton");
-        fight.innerText = "fight";
-        fight.addEventListener("click", () => {
-            FIGHT.createScene();
-        });
-
-        if (this.activePlayer().diceRound.find(n => n === 1) === 1) {
-            $(".buttonDisplay").append(fight);
-        } else {
-            $(".buttonDisplay").append(end);
-        }
-    },
-
     nextPlayer() {
         // swithces to the next player
         this.round = (this.round + 1) % this.players.length;
         this.displayCurrentPlayer();
         DICE.rollDice();
-        this.addbuttonDisplay();
         this.gameTick++;
         if (this.gameTick % this.playerCount === 0) {
             this.gameRound++;
         }
         CHEST.checkChests();
         VILLAGE.placeArtifact();
+        VILLAGE.checkVilalge(
+            MAP.location(this.activePlayer().coords.x, this.activePlayer().coords.y)
+        );
     },
 
     move(direction) {
@@ -172,7 +156,7 @@ const GAME = {
         now[inst[direction].dir] += inst[direction].val;
         let hasNeighbour;
 
-        this.players.forEach(player => {
+        this.players.forEach((player) => {
             if (JSON.stringify(player.coords) === JSON.stringify(now)) {
                 hasNeighbour = true;
             }
@@ -203,11 +187,14 @@ const GAME = {
             "px";
         this.activePlayer().coords[inst[direction].dir] += inst[direction].val;
         MAP.playEvent();
+        VILLAGE.checkVilalge(
+            MAP.location(this.activePlayer().coords.x, this.activePlayer().coords.y)
+        );
     },
 
     startGame() {
         this.addPlayer("Bogdan", "black");
-        // this.addPlayer("Liviuta", "darkred");
+        this.addPlayer("Liviuta", "darkred");
         // this.addPlayer("Gabi", "purple");
         // this.addPlayer("Andrei", "darkblue");
         // this.addPlayer("Maduta", "darkgreen");
@@ -217,7 +204,6 @@ const GAME = {
         DICE.rollDice();
         MAP.drawMap();
         this.displayCurrentPlayer();
-        this.addbuttonDisplay();
     },
 
     updatePlayerVisual() {

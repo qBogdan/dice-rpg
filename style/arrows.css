@@ -127,7 +127,8 @@
     justify-content: center;
 }
 
-.actionButton {
+.actionButton,
+.shopButton {
     height: 100%;
     width: 50%;
     background-color: blue;
@@ -140,7 +141,12 @@
     cursor: pointer;
 }
 
-.actionButton:hover {
+.actionButton:hover,
+.shopButton:hover {
     background-color: rgb(16, 16, 221);
     transform: scale(1.1);
+}
+
+.shopButton {
+    display: none;
 }

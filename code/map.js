@@ -52,7 +52,7 @@ const MAP = {
     checkLocation(location) {
         let check = [];
 
-        GAME.charactersLocation().forEach(loc => {
+        GAME.charactersLocation().forEach((loc) => {
             if (loc === location) {
                 check.push(0);
             } else {
@@ -68,7 +68,7 @@ const MAP = {
     },
 
     drawMap() {
-        $$(".artifact").forEach(a => a.remove());
+        $$(".artifact").forEach((a) => a.remove());
 
         this.map.forEach((loc, index) => {
             const place = document.createElement("div");
@@ -165,7 +165,7 @@ const MAP = {
     },
 
     activeChest() {
-        CHEST.chests.forEach(chest => {
+        CHEST.chests.forEach((chest) => {
             if (this.compareCoords(chest.coords, GAME.activePlayer().coords)) {
                 CHEST.emptyChest(chest);
             }

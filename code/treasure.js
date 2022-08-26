@@ -96,7 +96,7 @@ const CHEST = {
         if (type === "treasure") {
             item = itemList[Math.floor(Math.random() * itemList.length)];
         } else {
-            item = { ...artifactList[artifactList.findIndex(a => a.village === type)] };
+            item = { ...artifactList[artifactList.findIndex((a) => a.village === type)] };
         }
 
         this.displayTreasure(type, item);
@@ -138,6 +138,10 @@ const CHEST = {
 
             INV.addItem(treasure);
             VILLAGE.removeItem();
+            if (type === "treasure") {
+                this.emptyChest();
+            }
+
             $(".take").style.pointerEvents = "none";
             $(".cancel").style.pointerEvents = "none";
         });
@@ -157,7 +161,7 @@ const CHEST = {
     },
 
     checkChests() {
-        this.chests.forEach(chest => {
+        this.chests.forEach((chest) => {
             if (chest.openRound === GAME.gameRound) {
                 (MAP.map[chest.index] = "c"),
                     ($$(".chest")[chest.selector].style.backgroundColor = "brown");

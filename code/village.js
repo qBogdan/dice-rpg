@@ -41,18 +41,31 @@ const VILLAGE = {
 
     enterVillage(village) {
         this.checkPlayerItems(village);
-        //reward player
-        //update player
-        //add shop button
+    },
+
+    checkVilalge(location) {
+        if (location === "N" || location === "E" || location === "W") {
+            $(".shopButton").style.display = "flex";
+        } else {
+            $(".shopButton").style.display = "none";
+        }
+    },
+
+    openShop(village) {
+        console.log(village);
     },
 
     checkPlayerItems(village) {
         GAME.activePlayer().items.forEach((item, index) => {
             if (item.village === village.toLowerCase()) {
                 GAME.activePlayer().gold += item.bonus;
-                GAME.activePlayer().items.splice(index, 1);
             }
         });
+
+        GAME.activePlayer().items = GAME.activePlayer().items.filter(
+            (item) => item.village !== village.toLowerCase()
+        );
+
         GAME.displayCurrentPlayer();
     },
 };
