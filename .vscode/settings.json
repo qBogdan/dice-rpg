@@ -10,11 +10,10 @@
         ".gitignore": true,
         ".vscode/settings.json": true,
         "**/.vscode": true,
-        ".vscode": true
+        ".vscode": true,
+        "**/package.json": true,
+        "**/package-lock.json": true
     },
-    "hide-files.files": [
-        "README.md",
-        ".gitignore"
-    ],
+    "hide-files.files": ["README.md", ".gitignore"],
     "explorerExclude.backup": {}
 }
