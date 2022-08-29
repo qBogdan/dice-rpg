@@ -16,7 +16,7 @@ class PLAYER {
                 defence: undefined,
                 accesory: undefined,
             });
-        (this.diceNumber = 9), (this.diceRound = []);
+        (this.diceNumber = 5), (this.diceRound = []);
     }
 }
 
@@ -195,8 +195,8 @@ const GAME = {
     startGame() {
         this.addPlayer("Bogdan", "black");
         this.addPlayer("Liviuta", "darkred");
-        // this.addPlayer("Gabi", "purple");
-        // this.addPlayer("Andrei", "darkblue");
+        this.addPlayer("Gabi", "purple");
+        this.addPlayer("Iasmina", "darkblue");
         // this.addPlayer("Maduta", "darkgreen");
 
         INV.addEvents();
