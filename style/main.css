@@ -34,6 +34,10 @@ body {
 
 /* ------------------------- */
 
+.activePlayerFrame {
+    width: 40vw;
+}
+
 #gameWindow {
     background-color: antiquewhite;
     height: 100%;
@@ -209,9 +213,9 @@ body {
     border-radius: 1rem;
     font-size: 2rem;
     cursor: pointer;
-
 }
 
-.cancel:hover, .take:hover {
+.cancel:hover,
+.take:hover {
     transform: scale(1.1);
 }

@@ -41,7 +41,7 @@ const GAME = {
         });
 
         $(".shopButton").addEventListener("click", () => {
-            this.openShop(village);
+            SHOP.openShop();
         });
 
         document.addEventListener("keydown", (e) => {
@@ -199,6 +199,7 @@ const GAME = {
         this.addPlayer("Iasmina", "darkblue");
         // this.addPlayer("Maduta", "darkgreen");
 
+        SHOP.addEvents();
         INV.addEvents();
         this.addEvents();
         DICE.rollDice();

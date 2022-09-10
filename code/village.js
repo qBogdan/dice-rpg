@@ -51,10 +51,6 @@ const VILLAGE = {
         }
     },
 
-    openShop(village) {
-        console.log(village);
-    },
-
     checkPlayerItems(village) {
         GAME.activePlayer().items.forEach((item, index) => {
             if (item.village === village.toLowerCase()) {

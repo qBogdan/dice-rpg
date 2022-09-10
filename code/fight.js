@@ -10,7 +10,6 @@ class NPC {
         (this.attack = 0), (this.defence = 0);
     }
 }
-
 const FIGHT = {
     activeNPC: {},
 

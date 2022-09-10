@@ -1,0 +1,65 @@
+#shop {
+    position: absolute;
+
+    width: 100vw;
+    height: 100vh;
+
+    z-index: 999;
+    background-color: rgba(255, 217, 0, 0.432);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+.shopContainer {
+    width: 60%;
+    height: 50%;
+    background-color: antiquewhite;
+    display: flex;
+}
+
+.shopItems,
+.itemPreview,
+.sellItems {
+    flex: 1;
+    height: 100%;
+    border: 2px solid red;
+}
+
+.itemPreview {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.shopItems,
+.sellItems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    padding: 2rem 0 ;
+}
+
+.shopItem,
+.sellItem {
+    width: 40%;
+    aspect-ratio: 1;
+    background-color: grey;
+}
+
+.merchant {
+    height: 3rem;
+    border: 2px solid gold;
+}
+
+.preview {
+    flex: 1;
+    border: 2px solid green;
+}
+
+.shopAction {
+    height: 3rem;
+    border: 2px solid black
+}

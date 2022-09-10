@@ -8,8 +8,8 @@ const DICE = {
         let endN = 6;
 
         for (let i = 0; i < GAME.activePlayer().diceNumber; i++) {
-            let dieR = Math.floor(Math.random() * endN) + startN; // creates random number
-            //let dieR = 6; // temp all 6
+            //let dieR = Math.floor(Math.random() * endN) + startN; // creates random number
+            let dieR = 6; // temp all 6
 
             if (dieR === 1) {
                 // prevents game from having more than one attack per turn

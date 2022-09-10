@@ -9,6 +9,7 @@
         <link rel="shortcut icon" href="./media/favIcon.svg" type="image/x-icon" />
 
         <link rel="stylesheet" href="./style/main.css" />
+        <link rel="stylesheet" href="./style/shop.css" />
         <link rel="stylesheet" href="./style/player.css" />
         <link rel="stylesheet" href="./style/arrows.css" />
         <link rel="stylesheet" href="./style/fight.css" />
@@ -16,6 +17,7 @@
         <script src="./code/libraries/papaparse.min.js"></script>
         <script src="./code/csv.js"></script>
         <script src="./code/libraries/lodash.js"></script>
+        <script src="./code/shop.js" defer></script>
         <script src="./code/village.js" defer></script>
         <script src="./code/inventory.js" defer></script>
         <script src="./code/treasure.js" defer></script>
@@ -32,6 +34,40 @@
         </div>
 
         <div class="treasureDisplay"></div>
+
+        <div id="shop">
+            <div class="shopContainer">
+                <div class="shopItems">
+                    <div class="shopItem"></div>
+                    <div class="shopItem"></div>
+                    <div class="shopItem"></div>
+                    <div class="shopItem"></div>
+                    <div class="shopItem"></div>
+                    <div class="shopItem"></div>
+                </div>
+                <div class="itemPreview">
+                    <div class="merchant">
+                        Merchant
+                        <div class="playerGold"></div>
+                    </div>
+                    <div class="preview">
+                        <div class="prevItem"></div>
+                    </div>
+                    <div class="shopAction">
+                        <button>BUY/SELL</button>
+                        <button class="leaveShop">LEAVE</button>
+                    </div>
+                </div>
+                <div class="sellItems">
+                    <div class="sellItem"></div>
+                    <div class="sellItem"></div>
+                    <div class="sellItem"></div>
+                    <div class="sellItem"></div>
+                    <div class="sellItem"></div>
+                    <div class="sellItem"></div>
+                </div>
+            </div>
+        </div>
 
         <section id="gameWindow">
             <div id="map"></div>
