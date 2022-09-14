@@ -1,10 +1,10 @@
-let csvArray = [];
+let gameItems = [];
 
-Papa.parse("./data/test.csv", {
+Papa.parse("./data/gameItems.csv", {
     download: true,
     header: true,
     skipEmptyLines: true,
     complete: function (result) {
-        csvArray = result.data;
+        gameItems = result.data;
     },
 });

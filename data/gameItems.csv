@@ -1,0 +1,13 @@
+village,name,tier,type,slot,bonus,price,img,description
+W,Leather armor,1,defence,armor,3,10,outfit15,Light armor
+W,Iron Armor,2,defence,armor,6,20,outfit19,Medium armor
+W,Paladin Armor,3,defence,armor,9,30,outfit14,High end armor
+W,Dragon Scale Armor,S,defence,armor,15,50,outfit20,Special Armor made from dragon scales for real bro
+N,Iron Sword,1,attack,weapon,3,10,steelSword,Regular steel sword
+N,High Steel sword,2,attack,weapon,6,20,higherSteel,Better Sword
+N,Paladin Sword,3,attack,weapon,9,30,paladinSword,better better sword
+N,Meteorite Sword,S,attack,weapon,15,50,meteoriteSword,"You read it right, meteorite baby"
+E,warm milk,1,heal,,3,10,milk,yummy
+E,honey milk,2,heal,,6,20,milkAndHoney,yumm yummy
+E,herbs milk,3,heal,,9,30,herbMix,yummy yummy in my tummy
+E,Moon fruite Juice,S,heal,,15,50,appleJuice,Keeps you from dying once

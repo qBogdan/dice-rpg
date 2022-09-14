@@ -4,24 +4,6 @@ class TREASURE {
     }
 }
 
-const itemList = [
-    {
-        name: "armor",
-        type: "defence",
-        slot: "armor",
-        bonus: 3,
-        img: "outfit4.png",
-    },
-
-    {
-        name: "Fancy armor",
-        type: "defence",
-        slot: "armor",
-        bonus: 7,
-        img: "outfit19.png",
-    },
-];
-
 const artifactList = [
     {
         type: "artifact",
@@ -94,7 +76,7 @@ const CHEST = {
         let item;
 
         if (type === "treasure") {
-            item = itemList[Math.floor(Math.random() * itemList.length)];
+            item = gameItems[Math.floor(Math.random() * gameItems.length)];
         } else {
             item = { ...artifactList[artifactList.findIndex((a) => a.village === type)] };
         }
@@ -108,7 +90,7 @@ const CHEST = {
         const treasureCard = document.createElement("div");
         treasureCard.classList.add("treasureCard");
         treasureCard.classList.add("showBonus");
-        treasureCard.style.backgroundImage = `url(./media/items/${treasure.img})`;
+        treasureCard.style.backgroundImage = `url(../media/items/${treasure.img}.png)`;
         treasureCard.dataset.bonus = treasure.bonus;
 
         let cancel = document.createElement("div");
@@ -139,7 +121,7 @@ const CHEST = {
             INV.addItem(treasure);
             VILLAGE.removeItem();
             if (type === "treasure") {
-                this.emptyChest();
+                //  this.emptyChest();
             }
 
             $(".take").style.pointerEvents = "none";

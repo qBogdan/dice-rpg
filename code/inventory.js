@@ -25,9 +25,9 @@ const INV = {
                 }
                 slot.dataset.bonus = GAME.activePlayer().items[index].bonus;
                 slot.classList.add("showBonus");
-                slot.style.backgroundImage = `url(./media/items/${
+                slot.style.backgroundImage = `url("../media/items/${
                     GAME.activePlayer().items[index].img
-                })`;
+                }.png")`;
             } else {
                 slot.classList.remove("showBonus");
                 slot.dataset.interactive = false;

@@ -41,7 +41,7 @@ const GAME = {
         });
 
         $(".shopButton").addEventListener("click", () => {
-            SHOP.openShop();
+            SHOP.openShop(MAP.location(this.activePlayer().coords.x, this.activePlayer().coords.y));
         });
 
         document.addEventListener("keydown", (e) => {
@@ -194,9 +194,9 @@ const GAME = {
 
     startGame() {
         this.addPlayer("Bogdan", "black");
-        this.addPlayer("Liviuta", "darkred");
-        this.addPlayer("Gabi", "purple");
-        this.addPlayer("Iasmina", "darkblue");
+        // this.addPlayer("Liviuta", "darkred");
+        // this.addPlayer("Gabi", "purple");
+        //this.addPlayer("Iasmina", "darkblue");
         // this.addPlayer("Maduta", "darkgreen");
 
         SHOP.addEvents();

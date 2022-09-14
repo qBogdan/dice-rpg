@@ -25,6 +25,7 @@
     flex: 1;
     height: 100%;
     border: 2px solid red;
+
 }
 
 .itemPreview {
@@ -35,15 +36,20 @@
 
 .shopItems,
 .sellItems {
+
+
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
     justify-content: center;
-    padding: 2rem 0 ;
+    padding: 2rem 0;
 }
 
 .shopItem,
-.sellItem {
+.sellItem,
+.selectedItem {
+    background-position: center;
+    background-size: cover;
     width: 40%;
     aspect-ratio: 1;
     background-color: grey;

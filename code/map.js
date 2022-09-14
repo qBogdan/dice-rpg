@@ -1,19 +1,19 @@
 /* 1  2  3  4  5  6  7  8  9  10 11 12 13 14 15*/ // 66 = Q
 let mapString = `c  .  .  .  .  N  N  N  N  N  .  .  .  .  c
-     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-     .  .  x  .  .  .  .  .  .  .  .  .  x  .  .
-     .  .  .  .  .  .  .  x  .  .  .  .  .  .  .
-     .  .  .  .  x  .  .  .  .  .  x  .  .  .  .
-     W  .  .  .  .  .  .  .  .  .  .  .  .  .  E
-     W  .  .  .  .  .  d  d  d  .  .  .  .  .  E
-     W  .  .  x  .  .  d  D  d  .  .  x  .  .  E
-     W  w  .  .  .  .  d  d  d  .  .  .  .  .  E
-     W  .  .  .  .  .  .  .  .  .  .  .  .  .  E
-     .  .  .  .  x  .  .  .  .  .  x  .  .  .  .
-     .  .  .  .  .  .  .  x  .  .  .  .  .  .  .
-     .  .  x  .  .  .  .  .  .  .  .  .  x  .  .
-     .  .  .  .  .  .  .  .  .  .  .  .  .  .  .
-     c  .  .  .  S  S  S  S  S  S  S  .  .  .  c`;
+.  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+.  .  x  .  .  .  .  .  .  .  .  .  x  .  .
+.  .  .  .  .  .  .  x  .  .  .  .  .  .  .
+.  .  .  .  x  .  .  .  .  .  x  .  .  .  .
+W  .  .  .  .  .  .  .  .  .  .  .  .  .  E
+W  .  .  .  .  .  d  d  d  .  .  .  .  .  E
+W  .  .  x  .  .  d  D  d  .  .  x  .  .  E
+W  w  .  .  .  .  d  d  d  .  .  .  .  .  E
+W  .  .  .  .  .  .  .  .  .  .  .  .  .  E
+.  .  .  .  x  .  .  .  .  .  x  .  .  .  .
+.  .  .  .  .  .  .  x  .  .  .  .  .  .  .
+.  .  x  .  .  .  .  .  .  .  .  .  x  .  .
+.  .  .  .  .  .  .  .  .  .  .  .  .  .  .
+c  .  .  .  S  S  S  S  S  S  S  .  .  .  c`;
 
 const MAP = {
     map: mapString.split(/\s+|\r?\n/),
@@ -156,12 +156,6 @@ const MAP = {
         ) {
             CHEST.createNewTreasure(this.activePlayerLocation());
         }
-    },
-
-    enterVillage(village) {
-        // check if player has artifact and reward him
-        // display shop button
-        // create shop
     },
 
     activeChest() {
