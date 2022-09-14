@@ -2,6 +2,10 @@ const SHOP = {
     addEvents() {
         $(".leaveShop").addEventListener("click", () => {
             $("#shop").style.display = "none";
+            INV.displayItems();
+            GAME.updatePlayerVisual();
+            $(".prevItem").innerHTML = "";
+            $(".shopAction").innerHTML = "";
         });
     },
 
@@ -9,48 +13,57 @@ const SHOP = {
 
     openShop(village) {
         const stock = gameItems.filter((i) => i.village === village);
-        console.log(stock);
-
         $("#shop").style.display = "flex";
         this.displayItems(stock);
-        // this.previewItem(stock.find((i) => (i.tier = "S")));
-        // this.setShopButton();
     },
 
     displayItems(stock) {
         const shopItems = $(".shopItems");
-        const sellItems = $(".sellItems");
-
         shopItems.innerHTML = "";
+        const sellItems = $(".sellItems");
         sellItems.innerHTML = "";
 
         for (let i = 0; i < 6; i++) {
             const shopCell = document.createElement("div");
-            const sellCell = document.createElement("div");
             shopCell.classList.add("shopItem");
-            sellCell.classList.add("sellItem");
 
             if (stock[i] !== undefined) {
                 shopCell.style.backgroundImage = `url(../media/items/${stock[i].img}.png)`;
                 shopCell.addEventListener("click", () => {
-                    this.previewItem(stock[i]);
                     this.mode = "buy";
-                });
-            }
-
-            if (GAME.activePlayer().items[i]) {
-                sellCell.style.backgroundImage = `../media/items/${
-                    GAME.activePlayer().items[i]
-                }.png`;
-                shopCell.addEventListener("click", () => {
                     this.previewItem(stock[i]);
-                    this.mode = "sell";
                 });
             }
 
             shopItems.append(shopCell);
+        }
+
+        this.displaySellItems();
+        $("#currentGold").innerText = GAME.activePlayer().gold;
+    },
+
+    displaySellItems() {
+        const sellItems = $(".sellItems");
+        sellItems.innerHTML = "";
+
+        for (let i = 0; i < 6; i++) {
+            const sellCell = document.createElement("div");
+            sellCell.classList.add("sellItem");
+
+            if (GAME.activePlayer().items[i] !== undefined) {
+                console.log(GAME.activePlayer().items[i].name);
+                sellCell.style.backgroundImage = `url(../media/items/${
+                    GAME.activePlayer().items[i].img
+                }.png)`;
+                sellCell.addEventListener("click", () => {
+                    this.mode = "sell";
+                    this.previewItem(GAME.activePlayer().items[i]);
+                });
+            }
+
             sellItems.append(sellCell);
         }
+        $("#currentGold").innerText = GAME.activePlayer().gold;
     },
 
     previewItem(item) {
@@ -58,13 +71,17 @@ const SHOP = {
 
         const selectedItem = document.createElement("div");
         const description = document.createElement("p");
+        const price = document.createElement("p");
 
         selectedItem.classList.add("selectedItem");
         selectedItem.style.backgroundImage = `url(../media/items/${item.img}.png)`;
 
         description.innerText = item.description;
+        price.innerText = `Price: ${
+            this.mode === "buy" ? item.price : Math.floor(item.price / 2)
+        } gold`;
 
-        $(".prevItem").append(selectedItem, description);
+        $(".prevItem").append(selectedItem, description, price);
 
         this.setShopButton(item);
     },
@@ -85,10 +102,18 @@ const SHOP = {
     },
 
     sellItem(item) {
-        console.log(`${item.name} bought for ${item.price}`);
+        GAME.activePlayer().items = GAME.activePlayer().items.filter((i) => i.name !== item.name);
+        GAME.activePlayer().gold += Math.floor(item.price / 2);
+        this.displaySellItems();
     },
 
     buyItem(item) {
-        console.log(`${item.name} bought for ${item.price}`);
+        if (GAME.activePlayer().items.length < 6 && GAME.activePlayer().gold >= item.price) {
+            GAME.activePlayer().items.push(item);
+            GAME.activePlayer().gold -= item.price;
+            this.displaySellItems();
+        } else {
+            alert("no monies or space");
+        }
     },
 };

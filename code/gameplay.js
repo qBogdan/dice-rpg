@@ -16,7 +16,7 @@ class PLAYER {
                 defence: undefined,
                 accesory: undefined,
             });
-        (this.diceNumber = 5), (this.diceRound = []);
+        (this.diceNumber = 1), (this.diceRound = []);
     }
 }
 
@@ -145,7 +145,7 @@ const GAME = {
                 DICE.removeDice(inst[direction].die);
                 this.movePawn(direction, inst);
             } else if (this.activePlayer().diceRound.includes(6)) {
-                DICE.removeDice(6);
+                //DICE.removeDice(6);
                 this.movePawn(direction, inst);
             }
         }

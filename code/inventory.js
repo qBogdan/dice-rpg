@@ -61,7 +61,7 @@ const INV = {
                     `.${GAME.activePlayer().equipment[item].slot}`
                 ).style.backgroundImage = `url(./media/items/${
                     GAME.activePlayer().equipment[item].img
-                })`;
+                }.png)`;
                 $(`.${GAME.activePlayer().equipment[item].slot}`).dataset.bonus =
                     GAME.activePlayer().equipment[item].bonus;
                 $(`.${GAME.activePlayer().equipment[item].slot}`).classList.add("showBonus");
