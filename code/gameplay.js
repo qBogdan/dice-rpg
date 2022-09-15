@@ -1,25 +1,41 @@
 class PLAYER {
-    constructor(name, color) {
-        (this.selector = ""),
-            (this.name = name),
-            (this.index = 0),
-            (this.color = color),
-            (this.maxHealth = 20),
-            (this.health = this.maxHealth),
-            (this.attack = 0),
-            (this.defence = 0),
-            (this.gold = 20),
-            (this.coords = {}),
-            (this.items = []),
-            (this.equipment = {
-                attack: undefined,
-                defence: undefined,
-                accesory: undefined,
-            });
-        (this.diceNumber = 1), (this.diceRound = []);
+    constructor(name, color, picture) {
+        this.selector = "";
+        this.name = name;
+        this.picture = picture;
+        this.index = 0;
+        this.color = color;
+        this.maxHealth = 30;
+        this.health = this.maxHealth;
+        this.attack = 0;
+        this.defece = 0;
+        this.gold = 0;
+        this.coords = {};
+        this.mapLocation;
+        this.mapIndex;
+        this.items = [];
+        this.equipment = {
+            attack: undefined,
+            defence: undefined,
+            accesory: undefined,
+        };
+        this.diceRound = [];
+        this.diceNumber = 3;
     }
 }
 
+const player = () => {
+    return player;
+};
+
+const GAME = {
+    gameTick: 0, // increases every move
+    gameTurn: 0, // increases every next player
+    gameRound: 0, // increases after all players end a turn
+    players: [],
+};
+
+/*
 const GAME = {
     playerCount: 0,
     players: [],
@@ -209,11 +225,8 @@ const GAME = {
 
     updatePlayerVisual() {
         $(".playerStats .maxHealth").innerText = GAME.activePlayer().health;
-        $(".playerFighter .maxHealth").innerText = GAME.activePlayer().health;
 
         $(".playerInfo .bar").style.width =
-            (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + "%";
-        $(".playerFighter .bar").style.width =
             (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + "%";
     },
 
@@ -232,3 +245,4 @@ const GAME = {
         GAME.nextPlayer();
     },
 };
+*/

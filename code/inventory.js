@@ -11,7 +11,11 @@ const INV = {
         $$(".inventorySlot").forEach((slot, index) => {
             slot.addEventListener("click", (e) => {
                 if (e.target.dataset.interactive == "true") {
-                    this.equipItem(GAME.activePlayer().items[index], index);
+                    if (GAME.activePlayer().items[index].type == "heal") {
+                        this.consumeItem(GAME.activePlayer().items[index], index);
+                    } else {
+                        this.equipItem(GAME.activePlayer().items[index], index);
+                    }
                 }
             });
         });
@@ -47,6 +51,23 @@ const INV = {
 
         this.displayItems();
         this.displayEquipment();
+    },
+
+    consumeItem(item, index) {
+        if (GAME.activePlayer().health < GAME.activePlayer().maxHealth) {
+            if (
+                GAME.activePlayer().health + parseInt(item.bonus) >=
+                GAME.activePlayer().maxHealth
+            ) {
+                GAME.activePlayer().health = GAME.activePlayer().maxHealth;
+            } else {
+                GAME.activePlayer().health += parseInt(item.bonus);
+            }
+
+            GAME.activePlayer().items.splice(index, 1);
+            this.displayItems();
+            GAME.displayCurrentPlayer();
+        }
     },
 
     displayEquipment() {

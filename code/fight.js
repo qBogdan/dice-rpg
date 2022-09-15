@@ -203,6 +203,9 @@ const FIGHT = {
             }
 
             GAME.updatePlayerVisual();
+            $(".playerFighter .bar").style.width =
+                (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + "%";
+            $(".playerFighter .maxHealth").innerText = GAME.activePlayer().health;
         }
 
         $(".fightResult").innerText = winner.hit;
@@ -218,6 +221,9 @@ const FIGHT = {
 
         if (fighter === "player") {
             $(".fightResult").innerText = "NPC wins";
+            $(".playerFighter .bar").style.width =
+                (100 / GAME.activePlayer().maxHealth) * GAME.activePlayer().health + "%";
+            $(".playerFighter .maxHealth").innerText = GAME.activePlayer().health;
             GAME.updatePlayerVisual();
             setTimeout(() => {
                 GAME.resetPlayer();

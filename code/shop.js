@@ -51,7 +51,6 @@ const SHOP = {
             sellCell.classList.add("sellItem");
 
             if (GAME.activePlayer().items[i] !== undefined) {
-                console.log(GAME.activePlayer().items[i].name);
                 sellCell.style.backgroundImage = `url(../media/items/${
                     GAME.activePlayer().items[i].img
                 }.png)`;

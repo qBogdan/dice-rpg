@@ -10,21 +10,21 @@ const artifactList = [
         village: "w",
         bonus: 10,
         index: 0,
-        img: "WArtifact.png",
+        img: "WArtifact",
     },
     {
         type: "artifact",
         village: "e",
         bonus: 10,
         index: 0,
-        img: "EArtifact.png",
+        img: "EArtifact",
     },
     {
         type: "artifact",
         village: "n",
         bonus: 10,
         index: 0,
-        img: "NArtifact.png",
+        img: "NArtifact",
     },
 ];
 
