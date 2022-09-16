@@ -25,6 +25,7 @@ class PLAYER {
 }
 
 const player = () => {
+    const player = GAME.players[GAME.gameTurn];
     return player;
 };
 
@@ -33,15 +34,98 @@ const GAME = {
     gameTurn: 0, // increases every next player
     gameRound: 0, // increases after all players end a turn
     players: [],
+
+    addPlayer(name, color, picture) {
+        const newPlayer = new PLAYER(name, color, picture); // creates the player
+        newPlayer.selector = `player${this.players.length}`;
+        newPlayer.index = this.players.length;
+        newPlayer.coords = {
+            x: MAP.size,
+            y: 5 + newPlayer.index,
+        };
+        this.players.push(newPlayer);
+
+        const playerPawn = document.createElement("div"); // adds player element to map
+        playerPawn.classList.add("player", newPlayer.selector);
+
+        const player = document.createElement("div");
+        player.classList.add("player");
+        player.classList.add(`player${newPlayer.index}`);
+        player.style.top = MAP.elementPosition(MAP.size, 5 + newPlayer.index).x;
+        player.style.left = MAP.elementPosition(MAP.size, 5 + newPlayer.index).y;
+        player.style.background = color;
+
+        $("#map").append(player);
+    },
+
+    start() {
+        this.addEvents();
+    },
+
+    addEvents() {
+        $$(".arrowButton").forEach((button) => {
+            // adds events for arrow buttons
+            button.addEventListener("click", (e) => {
+                this.move(e.target.dataset.direction);
+            });
+        });
+    },
+
+    move(direction) {
+        const instructions = {
+            // map the instructions for each cardinal point
+            n: { dir: "n", val: -1, axis: "x", style: "top", die: 2 },
+            e: { dir: "e", val: 1, axis: "y", style: "left", die: 3 },
+            s: { dir: "s", val: 1, axis: "x", style: "top", die: 4 },
+            w: { dir: "w", val: -1, axis: "y", style: "left", die: 5 },
+        };
+
+        console.log(checkPath(instructions[direction]));
+
+        // if (clearPath(instructions)) {
+        //     checks if the player can move in given direction
+        //     if (this.activePlayer().diceRound.includes(inst[direction].die)) {
+        //         DICE.removeDice(inst[direction].die);
+        //         this.movePawn(direction, inst);
+        //     } else if (this.activePlayer().diceRound.includes(6)) {
+        //         DICE.removeDice(6);
+        //         this.movePawn(direction, inst);
+        //     }
+        // }
+    },
 };
 
+function checkPath(instructions) {
+    function checkEdge() {
+        if (
+            player().coords[instructions.axis] + instructions.val > 0 &&
+            player().coords[instructions.axis] + instructions.val < MAP.size
+        ) {
+            return true;
+        }
+    }
+    // console.log("edge", checkEdge());
+
+    function checkNeighbour() {
+        let free = true;
+        let nextMove = { ...player().coords };
+        nextMove[instructions.axis] += instructions.val;
+        GAME.players.forEach((player) => {
+            if (MAP.compareCoords({}, player.coords)) {
+                let free = false;
+            }
+        });
+        console.log("n", free);
+        return free;
+    }
+    //console.log("NEIGH", checkNeighbour());
+
+    if (checkEdge() && checkNeighbour()) {
+        return true;
+    }
+}
+
 /*
-const GAME = {
-    playerCount: 0,
-    players: [],
-    round: 0,
-    gameTick: 0,
-    gameRound: 0,
 
     addEvents() {
         // getCoords
@@ -65,27 +149,6 @@ const GAME = {
                 $(".fightScene").style.display = "none";
             }
         });
-    },
-
-    addPlayer(name, color) {
-        this.players[this.playerCount] = new PLAYER(name, color);
-        this.players[this.playerCount].selector = `player${this.playerCount}`;
-        this.players[this.playerCount].index = this.playerCount;
-        this.players[this.playerCount].coords = {
-            x: MAP.size,
-            y: 5 + this.playerCount,
-        };
-
-        const player = document.createElement("div");
-        player.classList.add("player");
-        player.classList.add(`player${this.playerCount}`);
-
-        player.style.top = MAP.getCoords(MAP.size) + "px";
-        player.style.left = MAP.getCoords(5 + this.playerCount) + "px";
-        player.style.background = color;
-
-        $("#map").append(player);
-        this.playerCount++;
     },
 
     displayCurrentPlayer() {

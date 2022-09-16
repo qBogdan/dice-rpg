@@ -17,6 +17,22 @@ c  .  .  .  S  S  S  S  S  S  S  .  .  .  c`;
 
 const MAP = {
     map: mapString.split(/\s+|\r?\n/),
+    size: 15,
+    elementPosition(x, y) {
+        return {
+            x: ($("#map").offsetWidth / this.size) * (x - 1) + "px",
+            y: ($("#map").offsetWidth / this.size) * (y - 1) + "px",
+        };
+    },
+
+    compareCoords(set1, set2) {
+        return set1.x === set2.x && set1.y === set2.y;
+    },
+};
+
+/*
+const MAP = {
+    map: mapString.split(/\s+|\r?\n/),
     playerPos: {},
     size: 15,
 
@@ -166,3 +182,4 @@ const MAP = {
         });
     },
 };
+*/
