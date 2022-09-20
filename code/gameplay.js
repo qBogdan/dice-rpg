@@ -26,6 +26,8 @@ class PLAYER {
 
 const player = () => {
     const player = GAME.players[GAME.playerTurn];
+    player.mapIndex = MAP.getIndex(player.coords);
+    player.mapLocation = MAP.getLocation(player.coords);
     return player;
 };
 
@@ -61,12 +63,12 @@ const GAME = {
         if (this.gameTurn === 0) {
             this.gameRound++;
         }
-        DICE.rollDice();
+        DICE.rollDice(); // will be replaced with roll button
     },
 
     start() {
         this.addEvents();
-        DICE.rollDice();
+        DICE.rollDice(); // will be replaced with Roll button
     },
 
     addEvents() {
@@ -79,6 +81,12 @@ const GAME = {
 
         $(".endButton").addEventListener("click", () => {
             this.nextPlayer();
+        });
+
+        $(".inventoryWindow").addEventListener("click", e => {
+            if (e.target.dataset.type !== "empty" && e.target.dataset.type !== "artifact") {
+                INV.useItem(player().items[e.target.dataset.index], e.target.dataset.index);
+            }
         });
     },
 
@@ -111,6 +119,7 @@ const GAME = {
             player().coords[thisMove.axis] += thisMove.val;
             this.move(thisMove);
             this.gameTick++;
+            MAP.playEvent();
         }
     },
 

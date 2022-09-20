@@ -6,6 +6,7 @@ function init() {
     GAME.addPlayer("Bogdan", "white");
     GAME.addPlayer("Livi", "red");
     GAME.start();
+    MAP.drawMap();
 }
 
 init();

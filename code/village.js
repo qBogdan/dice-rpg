@@ -1,3 +1,14 @@
+class artifact {
+    constructor(village, level, index) {
+        type = "artifact";
+        level = level;
+        village = village.toLowerCase();
+        bonus = 10 * (level + 1);
+        index = index;
+        img = `${village}Artifact${level}`;
+    }
+}
+
 const VILLAGE = {
     villageTick: 0,
     villages: [
@@ -59,7 +70,7 @@ const VILLAGE = {
         });
 
         GAME.activePlayer().items = GAME.activePlayer().items.filter(
-            (item) => item.village !== village.toLowerCase()
+            item => item.village !== village.toLowerCase()
         );
 
         GAME.displayCurrentPlayer();

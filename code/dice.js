@@ -1,7 +1,7 @@
 const DICE = {
     rollDice() {
         $(".diceDisplay").innerHTML = ""; // resets dice container element
-        player().diceRound = []; // resets current dice array
+        player().diceRound = player().diceRound.filter(d => d === 1); // resets current dice array but keeps 1
         for (let die = 0; die < player().diceNumber; die++) {
             let randomValue = Math.floor(Math.random() * 5) + 2; // generates random die from 2 to 6
             const dieElement = div();

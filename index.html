@@ -20,7 +20,7 @@
         <script src="./code/shop.js" defer></script>
         <script src="./code/village.js" defer></script>
         <script src="./code/inventory.js" defer></script>
-        <script src="./code/treasure.js" defer></script>
+        <script src="./code/chest.js" defer></script>
         <script src="./code/dice.js" defer></script>
         <script src="./code/map.js" defer></script>
         <script src="./code/gameplay.js" defer></script>
@@ -77,8 +77,8 @@
 
                 <div class="playerInfo">
                     <div class="playerEquipment">
-                        <div data-slot="weaponSlot" class="equipmentSlot weapon"></div>
-                        <div data-slot="armorSlot" class="equipmentSlot armor"></div>
+                        <div data-slot="attackSlot" class="equipmentSlot weapon"></div>
+                        <div data-slot="defenceSlot" class="equipmentSlot armor"></div>
                         <div data-slot="accesorySlot" class="equipmentSlot accesory"></div>
                     </div>
 
@@ -90,13 +90,13 @@
                 </div>
             </div>
 
-            <div class="inventoryWindow">
-                <div class="inventorySlot"></div>
-                <div class="inventorySlot"></div>
-                <div class="inventorySlot"></div>
-                <div class="inventorySlot"></div>
-                <div class="inventorySlot"></div>
-                <div class="inventorySlot"></div>
+            <div class="inventoryWindow" data-type="empty">
+                <div class="inventorySlot" data-type="empty"></div>
+                <div class="inventorySlot" data-type="empty"></div>
+                <div class="inventorySlot" data-type="empty"></div>
+                <div class="inventorySlot" data-type="empty"></div>
+                <div class="inventorySlot" data-type="empty"></div>
+                <div class="inventorySlot" data-type="empty"></div>
             </div>
 
             <div class="controlsWindow">
