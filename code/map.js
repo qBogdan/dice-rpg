@@ -18,7 +18,8 @@ c  .  .  .  S  S  S  S  S  S  S  .  .  .  c`;
 const MAP = {
     map: mapString.split(/\s+|\r?\n/),
     size: 15,
-    elementPosition(x, y) {
+
+    elementPosition({ x, y }) {
         return {
             x: ($("#map").offsetWidth / this.size) * (x - 1) + "px",
             y: ($("#map").offsetWidth / this.size) * (y - 1) + "px",

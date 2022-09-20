@@ -25,19 +25,20 @@ class PLAYER {
 }
 
 const player = () => {
-    const player = GAME.players[GAME.gameTurn];
+    const player = GAME.players[GAME.playerTurn];
     return player;
 };
 
 const GAME = {
     gameTick: 0, // increases every move
+    playerTurn: 0, // increases every next player and resets after all play 1 turn
     gameTurn: 0, // increases every next player
     gameRound: 0, // increases after all players end a turn
-    players: [],
+    players: [], // array of all players object
 
     addPlayer(name, color, picture) {
         const newPlayer = new PLAYER(name, color, picture); // creates the player
-        newPlayer.selector = `player${this.players.length}`;
+        newPlayer.selector = `.player${this.players.length}`;
         newPlayer.index = this.players.length;
         newPlayer.coords = {
             x: MAP.size,
@@ -49,13 +50,20 @@ const GAME = {
         playerPawn.classList.add("player", newPlayer.selector);
 
         const player = document.createElement("div");
-        player.classList.add("player");
-        player.classList.add(`player${newPlayer.index}`);
-        player.style.top = MAP.elementPosition(MAP.size, 5 + newPlayer.index).x;
-        player.style.left = MAP.elementPosition(MAP.size, 5 + newPlayer.index).y;
+        player.classList.add(`player`, `player${newPlayer.index}`);
+        player.style.top = MAP.elementPosition(newPlayer.coords).x;
+        player.style.left = MAP.elementPosition(newPlayer.coords).y;
         player.style.background = color;
 
         $("#map").append(player);
+    },
+
+    nextPlayer() {
+        this.playerTurn = (this.gameTurn + 1) % this.players.length;
+        this.gameTurn++;
+        if (this.gameTurn === 0) {
+            this.gameRound++;
+        }
     },
 
     start() {
@@ -63,15 +71,19 @@ const GAME = {
     },
 
     addEvents() {
-        $$(".arrowButton").forEach((button) => {
+        $$(".arrowButton").forEach(button => {
             // adds events for arrow buttons
-            button.addEventListener("click", (e) => {
-                this.move(e.target.dataset.direction);
+            button.addEventListener("click", e => {
+                this.moveCommand(e.target.dataset.direction);
             });
+        });
+
+        $(".endButton").addEventListener("click", () => {
+            this.nextPlayer();
         });
     },
 
-    move(direction) {
+    moveCommand(direction) {
         const instructions = {
             // map the instructions for each cardinal point
             n: { dir: "n", val: -1, axis: "x", style: "top", die: 2 },
@@ -79,51 +91,57 @@ const GAME = {
             s: { dir: "s", val: 1, axis: "x", style: "top", die: 4 },
             w: { dir: "w", val: -1, axis: "y", style: "left", die: 5 },
         };
+        const thisMove = instructions[direction];
 
-        console.log(checkPath(instructions[direction]));
-
-        // if (clearPath(instructions)) {
-        //     checks if the player can move in given direction
-        //     if (this.activePlayer().diceRound.includes(inst[direction].die)) {
-        //         DICE.removeDice(inst[direction].die);
-        //         this.movePawn(direction, inst);
-        //     } else if (this.activePlayer().diceRound.includes(6)) {
-        //         DICE.removeDice(6);
-        //         this.movePawn(direction, inst);
-        //     }
-        // }
+        if (this.checkPath(thisMove)) {
+            console.log(direction);
+            player().coords[thisMove.axis] += thisMove.val;
+            this.move(thisMove);
+            this.gameTick++;
+            //this.move(thisMove);
+            // if (this.activePlayer().diceRound.includes(inst[direction].die)) {
+            //     DICE.removeDice(inst[direction].die);
+            //     this.movePawn(direction, inst);
+            // } else if (this.activePlayer().diceRound.includes(6)) {
+            //     DICE.removeDice(6);
+            //     this.movePawn(direction, inst);
+            // }
+        }
     },
-};
 
-function checkPath(instructions) {
-    function checkEdge() {
-        if (
-            player().coords[instructions.axis] + instructions.val > 0 &&
-            player().coords[instructions.axis] + instructions.val < MAP.size
-        ) {
+    checkPath(instructions) {
+        // check if next coordinate is empty before moving
+        function checkEdge() {
+            if (
+                player().coords[instructions.axis] + instructions.val > 0 &&
+                player().coords[instructions.axis] + instructions.val < MAP.size + 1
+            ) {
+                return true;
+            }
+        }
+
+        function checkNeighbour() {
+            let free = true;
+            let nextMove = { ...player().coords };
+            nextMove[instructions.axis] += instructions.val;
+            GAME.players.forEach(player => {
+                if (MAP.compareCoords(nextMove, player.coords)) {
+                    free = false;
+                }
+            });
+            return free;
+        }
+        if (checkEdge() && checkNeighbour()) {
             return true;
         }
-    }
-    // console.log("edge", checkEdge());
+    },
 
-    function checkNeighbour() {
-        let free = true;
-        let nextMove = { ...player().coords };
-        nextMove[instructions.axis] += instructions.val;
-        GAME.players.forEach((player) => {
-            if (MAP.compareCoords({}, player.coords)) {
-                let free = false;
-            }
-        });
-        console.log("n", free);
-        return free;
-    }
-    //console.log("NEIGH", checkNeighbour());
-
-    if (checkEdge() && checkNeighbour()) {
-        return true;
-    }
-}
+    move(instructions) {
+        $(player().selector).style[instructions.style] = MAP.elementPosition(player().coords)[
+            instructions.axis
+        ];
+    },
+};
 
 /*
 
@@ -169,107 +187,6 @@ function checkPath(instructions) {
         return this.players.map((x) => MAP.getIndex(x.coords.x, x.coords.y));
     },
 
-    activePlayer() {
-        // sets controlls for the current player
-        return this.players[this.round];
-    },
-
-    nextPlayer() {
-        // swithces to the next player
-        this.round = (this.round + 1) % this.players.length;
-        this.displayCurrentPlayer();
-        DICE.rollDice();
-        this.gameTick++;
-        if (this.gameTick % this.playerCount === 0) {
-            this.gameRound++;
-        }
-        CHEST.checkChests();
-        VILLAGE.placeArtifact();
-        VILLAGE.checkVilalge(
-            MAP.location(this.activePlayer().coords.x, this.activePlayer().coords.y)
-        );
-    },
-
-    move(direction) {
-        const inst = {
-            // map the instructions for each cardinal point
-            n: {
-                dir: "x",
-                val: -1,
-                axis: "top",
-                die: 2,
-            },
-            e: {
-                dir: "y",
-                val: 1,
-                axis: "left",
-                die: 3,
-            },
-            s: {
-                dir: "x",
-                val: 1,
-                axis: "top",
-                die: 4,
-            },
-            w: {
-                dir: "y",
-                val: -1,
-                axis: "left",
-                die: 5,
-            },
-        };
-
-        if (this.checkPath(inst, direction)) {
-            if (this.activePlayer().diceRound.includes(inst[direction].die)) {
-                DICE.removeDice(inst[direction].die);
-                this.movePawn(direction, inst);
-            } else if (this.activePlayer().diceRound.includes(6)) {
-                //DICE.removeDice(6);
-                this.movePawn(direction, inst);
-            }
-        }
-    },
-
-    chekNeighbor(inst, direction) {
-        let now = { ...this.activePlayer().coords };
-        now[inst[direction].dir] += inst[direction].val;
-        let hasNeighbour;
-
-        this.players.forEach((player) => {
-            if (JSON.stringify(player.coords) === JSON.stringify(now)) {
-                hasNeighbour = true;
-            }
-        });
-
-        if (hasNeighbour) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-
-    checkPath(inst, direction) {
-        let nextDir = this.activePlayer().coords[inst[direction].dir] + inst[direction].val;
-
-        if (nextDir > 0 && nextDir < MAP.size + 1 && !this.chekNeighbor(inst, direction)) {
-            return true;
-        } else {
-            return false;
-        }
-    },
-
-    movePawn(direction, inst) {
-        // moves the player Element
-        const pawn = $(`.${this.activePlayer().selector}`);
-        pawn.style[inst[direction].axis] =
-            MAP.getCoords(this.activePlayer().coords[inst[direction].dir] + inst[direction].val) +
-            "px";
-        this.activePlayer().coords[inst[direction].dir] += inst[direction].val;
-        MAP.playEvent();
-        VILLAGE.checkVilalge(
-            MAP.location(this.activePlayer().coords.x, this.activePlayer().coords.y)
-        );
-    },
 
     startGame() {
         this.addPlayer("Bogdan", "black");
