@@ -12,7 +12,7 @@ const SHOP = {
     mode: "buy",
 
     openShop(village) {
-        const stock = gameItems.filter((i) => i.village === village);
+        const stock = gameItems.filter(i => i.village === village);
         $("#shop").style.display = "flex";
         this.displayItems(stock);
     },
@@ -24,7 +24,7 @@ const SHOP = {
         sellItems.innerHTML = "";
 
         for (let i = 0; i < 6; i++) {
-            const shopCell = document.createElement("div");
+            const shopCell = div();
             shopCell.classList.add("shopItem");
 
             if (stock[i] !== undefined) {
@@ -47,7 +47,7 @@ const SHOP = {
         sellItems.innerHTML = "";
 
         for (let i = 0; i < 6; i++) {
-            const sellCell = document.createElement("div");
+            const sellCell = div();
             sellCell.classList.add("sellItem");
 
             if (GAME.activePlayer().items[i] !== undefined) {
@@ -68,7 +68,7 @@ const SHOP = {
     previewItem(item) {
         $(".prevItem").innerHTML = "";
 
-        const selectedItem = document.createElement("div");
+        const selectedItem = div();
         const description = document.createElement("p");
         const price = document.createElement("p");
 
@@ -101,7 +101,7 @@ const SHOP = {
     },
 
     sellItem(item) {
-        GAME.activePlayer().items = GAME.activePlayer().items.filter((i) => i.name !== item.name);
+        GAME.activePlayer().items = GAME.activePlayer().items.filter(i => i.name !== item.name);
         GAME.activePlayer().gold += Math.floor(item.price / 2);
         this.displaySellItems();
     },

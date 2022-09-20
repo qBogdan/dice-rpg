@@ -88,7 +88,7 @@ const MAP = {
         $$(".artifact").forEach((a) => a.remove());
 
         this.map.forEach((loc, index) => {
-            const place = document.createElement("div");
+            const place = div();
 
             place.style.gridRowStart = this.indexCoords(index).x;
             place.style.gridColumnStart = this.indexCoords(index).y;

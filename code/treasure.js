@@ -78,7 +78,7 @@ const CHEST = {
         if (type === "treasure") {
             item = gameItems[Math.floor(Math.random() * gameItems.length)];
         } else {
-            item = { ...artifactList[artifactList.findIndex((a) => a.village === type)] };
+            item = { ...artifactList[artifactList.findIndex(a => a.village === type)] };
         }
 
         this.displayTreasure(type, item);
@@ -87,16 +87,16 @@ const CHEST = {
     displayTreasure(type, treasure) {
         $(".treasureDisplay").innerHTML = "";
 
-        const treasureCard = document.createElement("div");
+        const treasureCard = div();
         treasureCard.classList.add("treasureCard");
         treasureCard.classList.add("showBonus");
         treasureCard.style.backgroundImage = `url(../media/items/${treasure.img}.png)`;
         treasureCard.dataset.bonus = treasure.bonus;
 
-        let cancel = document.createElement("div");
+        let cancel = div();
         cancel.innerText = "Cancel";
         cancel.classList.add("cancel");
-        let take = document.createElement("div");
+        let take = div();
         take.innerText = "Take";
         take.classList.add("take");
 
@@ -143,7 +143,7 @@ const CHEST = {
     },
 
     checkChests() {
-        this.chests.forEach((chest) => {
+        this.chests.forEach(chest => {
             if (chest.openRound === GAME.gameRound) {
                 (MAP.map[chest.index] = "c"),
                     ($$(".chest")[chest.selector].style.backgroundColor = "brown");

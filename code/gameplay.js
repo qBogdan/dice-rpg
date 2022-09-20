@@ -46,10 +46,7 @@ const GAME = {
         };
         this.players.push(newPlayer);
 
-        const playerPawn = document.createElement("div"); // adds player element to map
-        playerPawn.classList.add("player", newPlayer.selector);
-
-        const player = document.createElement("div");
+        const player = div();
         player.classList.add(`player`, `player${newPlayer.index}`);
         player.style.top = MAP.elementPosition(newPlayer.coords).x;
         player.style.left = MAP.elementPosition(newPlayer.coords).y;
@@ -64,10 +61,12 @@ const GAME = {
         if (this.gameTurn === 0) {
             this.gameRound++;
         }
+        DICE.rollDice();
     },
 
     start() {
         this.addEvents();
+        DICE.rollDice();
     },
 
     addEvents() {
@@ -93,19 +92,25 @@ const GAME = {
         };
         const thisMove = instructions[direction];
 
-        if (this.checkPath(thisMove)) {
-            console.log(direction);
+        function hasDie(die) {
+            let clear;
+            if (player().diceRound.includes(die)) {
+                clear = true;
+                DICE.removeDie(die);
+            } else if (player().diceRound.includes(6)) {
+                clear = true;
+                DICE.removeDie(6);
+            } else if (player().diceRound.includes(1)) {
+                clear = true;
+                DICE.removeDie(1);
+            }
+            return clear;
+        }
+
+        if (this.checkPath(thisMove) /* && hasDie(thisMove.die)*/) {
             player().coords[thisMove.axis] += thisMove.val;
             this.move(thisMove);
             this.gameTick++;
-            //this.move(thisMove);
-            // if (this.activePlayer().diceRound.includes(inst[direction].die)) {
-            //     DICE.removeDice(inst[direction].die);
-            //     this.movePawn(direction, inst);
-            // } else if (this.activePlayer().diceRound.includes(6)) {
-            //     DICE.removeDice(6);
-            //     this.movePawn(direction, inst);
-            // }
         }
     },
 

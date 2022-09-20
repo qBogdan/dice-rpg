@@ -1,5 +1,6 @@
-const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
+const $ = selector => document.querySelector(selector);
+const $$ = selector => document.querySelectorAll(selector);
+const div = () => document.createElement("div");
 
 function init() {
     GAME.addPlayer("Bogdan", "white");
