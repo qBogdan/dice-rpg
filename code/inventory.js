@@ -12,7 +12,7 @@ const INV = {
     displayItems() {
         $$(".inventorySlot").forEach((slot, index) => {
             const item = player().items[index];
-            if (item) {
+            if (item !== undefined) {
                 slot.dataset.index = index;
                 slot.dataset.type = item.type;
                 slot.dataset.bonus = item.bonus;
@@ -23,7 +23,7 @@ const INV = {
                 slot.classList.remove("showBonus");
                 slot.dataset.type = "empty";
                 slot.style.cursor = "auto";
-                slot.backgroundImage = "url(./media/inventorySlot.png)";
+                slot.style.backgroundImage = "url(../media/inventorySlot.png)";
             }
         });
     },
@@ -31,14 +31,15 @@ const INV = {
     displayEquipment() {
         const eq = player().equipment;
         for (let item in eq) {
-            console.log(item);
             if (eq[item]) {
                 const slot = $(`[data-slot="${eq[item].type}Slot"]`);
                 slot.style.backgroundImage = `url(../media/items/${eq[item].img}.png`;
                 slot.dataset.bonus = eq[item].bonus;
                 slot.classList.add("showBonus");
             } else {
-                $(`[data-slot="${item}Slot"]`).style.backgroundImage = `url(./media/${item}Slot.png)`;
+                $(
+                    `[data-slot="${item}Slot"]`
+                ).style.backgroundImage = `url(./media/${item}Slot.png)`;
                 $(`[data-slot="${item}Slot"]`).classList.remove("showBonus");
             }
         }
@@ -63,8 +64,8 @@ const INV = {
 
         player().equipment[item.type] = item;
 
-        this.displayItems();
         this.displayEquipment();
+        this.displayItems();
     },
 
     // consumeItem(item, index) {

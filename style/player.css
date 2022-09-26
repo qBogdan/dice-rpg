@@ -74,11 +74,11 @@
 }
 
 .playerEquipment .weapon {
-    background-image: url(../media/weaponSlot.png);
+    background-image: url(../media/attackSlot.png);
 }
 
 .playerEquipment .armor {
-    background-image: url(../media/armorSlot.png);
+    background-image: url(../media/defenceSlot.png);
 }
 
 .playerEquipment .accesory {

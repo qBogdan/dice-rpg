@@ -8,7 +8,7 @@ class PLAYER {
         this.maxHealth = 30;
         this.health = this.maxHealth;
         this.attack = 0;
-        this.defece = 0;
+        this.defence = 0;
         this.gold = 0;
         this.coords = {};
         this.mapLocation;
@@ -63,18 +63,18 @@ const GAME = {
         if (this.gameTurn === 0) {
             this.gameRound++;
         }
-        DICE.rollDice(); // will be replaced with roll button
+        this.displayCurrentPlayer();
     },
 
     start() {
         this.addEvents();
-        DICE.rollDice(); // will be replaced with Roll button
+        this.displayCurrentPlayer();
     },
 
     addEvents() {
-        $$(".arrowButton").forEach(button => {
+        $$(".arrowButton").forEach((button) => {
             // adds events for arrow buttons
-            button.addEventListener("click", e => {
+            button.addEventListener("click", (e) => {
                 this.moveCommand(e.target.dataset.direction);
             });
         });
@@ -83,7 +83,7 @@ const GAME = {
             this.nextPlayer();
         });
 
-        $(".inventoryWindow").addEventListener("click", e => {
+        $(".inventoryWindow").addEventListener("click", (e) => {
             if (e.target.dataset.type !== "empty" && e.target.dataset.type !== "artifact") {
                 INV.useItem(player().items[e.target.dataset.index], e.target.dataset.index);
             }
@@ -138,7 +138,7 @@ const GAME = {
             let free = true;
             let nextMove = { ...player().coords };
             nextMove[instructions.axis] += instructions.val;
-            GAME.players.forEach(player => {
+            GAME.players.forEach((player) => {
                 if (MAP.compareCoords(nextMove, player.coords)) {
                     free = false;
                 }
@@ -154,6 +154,28 @@ const GAME = {
         $(player().selector).style[instructions.style] = MAP.elementPosition(player().coords)[
             instructions.axis
         ];
+    },
+
+    displayCurrentPlayer() {
+        //display picture and name
+        this.updateNameStats();
+        INV.displayEquipment();
+        INV.displayItems();
+        DICE.rollDice();
+        this.updateLifeBar();
+    },
+
+    updateNameStats() {
+        //update picture
+        $(".playerName").innerText = player().name;
+        $(".gold").innerText = player().gold;
+        $(".attack").innerText = player().attack;
+        $(".defence").innerText = player().defence;
+        $(".maxHealth").innerText = player().maxHealth;
+    },
+
+    updateLifeBar() {
+        $(".bar").style.width = `${(100 / player().maxHealth) * player().health}%`;
     },
 };
 
