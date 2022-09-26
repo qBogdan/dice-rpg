@@ -6,7 +6,7 @@ class PLAYER {
         this.index = 0;
         this.color = color;
         this.maxHealth = 30;
-        this.health = this.maxHealth;
+        this.health = 25 /*this.maxHealth*/;
         this.attack = 0;
         this.defence = 0;
         this.gold = 0;
@@ -72,9 +72,9 @@ const GAME = {
     },
 
     addEvents() {
-        $$(".arrowButton").forEach((button) => {
+        $$(".arrowButton").forEach(button => {
             // adds events for arrow buttons
-            button.addEventListener("click", (e) => {
+            button.addEventListener("click", e => {
                 this.moveCommand(e.target.dataset.direction);
             });
         });
@@ -83,7 +83,7 @@ const GAME = {
             this.nextPlayer();
         });
 
-        $(".inventoryWindow").addEventListener("click", (e) => {
+        $(".inventoryWindow").addEventListener("click", e => {
             if (e.target.dataset.type !== "empty" && e.target.dataset.type !== "artifact") {
                 INV.useItem(player().items[e.target.dataset.index], e.target.dataset.index);
             }
@@ -126,10 +126,7 @@ const GAME = {
     checkPath(instructions) {
         // check if next coordinate is empty before moving
         function checkEdge() {
-            if (
-                player().coords[instructions.axis] + instructions.val > 0 &&
-                player().coords[instructions.axis] + instructions.val < MAP.size + 1
-            ) {
+            if (player().coords[instructions.axis] + instructions.val > 0 && player().coords[instructions.axis] + instructions.val < MAP.size + 1) {
                 return true;
             }
         }
@@ -138,7 +135,7 @@ const GAME = {
             let free = true;
             let nextMove = { ...player().coords };
             nextMove[instructions.axis] += instructions.val;
-            GAME.players.forEach((player) => {
+            GAME.players.forEach(player => {
                 if (MAP.compareCoords(nextMove, player.coords)) {
                     free = false;
                 }
@@ -151,13 +148,10 @@ const GAME = {
     },
 
     move(instructions) {
-        $(player().selector).style[instructions.style] = MAP.elementPosition(player().coords)[
-            instructions.axis
-        ];
+        $(player().selector).style[instructions.style] = MAP.elementPosition(player().coords)[instructions.axis];
     },
 
     displayCurrentPlayer() {
-        //display picture and name
         this.updateNameStats();
         INV.displayEquipment();
         INV.displayItems();

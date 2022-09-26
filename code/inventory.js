@@ -37,19 +37,28 @@ const INV = {
                 slot.dataset.bonus = eq[item].bonus;
                 slot.classList.add("showBonus");
             } else {
-                $(
-                    `[data-slot="${item}Slot"]`
-                ).style.backgroundImage = `url(./media/${item}Slot.png)`;
+                $(`[data-slot="${item}Slot"]`).style.backgroundImage = `url(./media/${item}Slot.png)`;
                 $(`[data-slot="${item}Slot"]`).classList.remove("showBonus");
             }
         }
     },
 
     useItem(item, index) {
+        const bonus = parseInt(item.bonus);
         if (item.type === "defence" || item.type === "attack" || item.type === "accesory") {
             this.equipItem(item, index);
         } else if (item.type === "heal") {
-            //heal item
+            if (player().health < player().maxHealth) {
+                if (player().health + bonus >= player().maxHealth) {
+                    player().health = player().maxHealth;
+                } else {
+                    player().health += bonus;
+                }
+
+                player().items.splice(index, 1);
+                GAME.updateLifeBar();
+                this.displayItems();
+            }
         } else {
             alert("what type is this item ??");
         }
@@ -67,48 +76,4 @@ const INV = {
         this.displayEquipment();
         this.displayItems();
     },
-
-    // consumeItem(item, index) {
-    //     if (GAME.activePlayer().health < GAME.activePlayer().maxHealth) {
-    //         if (
-    //             GAME.activePlayer().health + parseInt(item.bonus) >=
-    //             GAME.activePlayer().maxHealth
-    //         ) {
-    //             GAME.activePlayer().health = GAME.activePlayer().maxHealth;
-    //         } else {
-    //             GAME.activePlayer().health += parseInt(item.bonus);
-    //         }
-
-    //         GAME.activePlayer().items.splice(index, 1);
-    //         this.displayItems();
-    //         GAME.displayCurrentPlayer();
-    //     }
-    // },
-
-    // displayEquipment() {
-    //     $$(".equipmentSlot").forEach((slot) => {
-    //         slot.style.backgroundImage = `url(./media/${slot.dataset.slot}.png)`;
-    //         slot.classList.remove("showBonus");
-    //     });
-
-    //     for (let item in GAME.activePlayer().equipment) {
-    //         if (GAME.activePlayer().equipment[item] !== undefined) {
-    //             $(
-    //                 `.${GAME.activePlayer().equipment[item].slot}`
-    //             ).style.backgroundImage = `url(./media/items/${
-    //                 GAME.activePlayer().equipment[item].img
-    //             }.png)`;
-    //             $(`.${GAME.activePlayer().equipment[item].slot}`).dataset.bonus =
-    //                 GAME.activePlayer().equipment[item].bonus;
-    //             $(`.${GAME.activePlayer().equipment[item].slot}`).classList.add("showBonus");
-
-    //             this.updatePlayerStats(item);
-    //         }
-    //     }
-    // },
-
-    // updatePlayerStats(item) {
-    //     GAME.activePlayer()[item] = GAME.activePlayer().equipment[item].bonus;
-    //     $(`.playerStats .${item}`).innerText = GAME.activePlayer()[item];
-    // },
 };
